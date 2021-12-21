@@ -24,7 +24,7 @@
       </view>
     </view>
   </view>
-
+  <navigator url="/page/createMeeting/index" hover-class="navigator-hover">跳转到新页面</navigator>
   <view class="environment" bindtap="onChangeShowEnvChoose">当前环境 {{ selectedEnv.alias }}</view>
 
   <cloud-tip-modal showUploadTipProps="{{showUploadTip}}"></cloud-tip-modal>

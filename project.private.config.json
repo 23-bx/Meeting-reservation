@@ -57,6 +57,13 @@
         {
           "name": "pages/updateRecordSuccess/index",
           "pathName": "pages/updateRecordSuccess/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "新建会议",
+          "pathName": "pages/createMeeting/index",
+          "query": "",
           "scene": null
         }
       ]

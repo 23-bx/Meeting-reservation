@@ -31,13 +31,18 @@
     "enableEngineNative": false,
     "useIsolateContext": true,
     "userConfirmedBundleSwitch": false,
-    "packNpmManually": false,
-    "packNpmRelationList": [],
     "minifyWXSS": true,
     "disableUseStrict": false,
     "showES6CompileOption": false,
     "useCompilerPlugins": false,
-    "minifyWXML": true
+    "minifyWXML": true,
+    "packNpmManually": true,
+    "packNpmRelationList": [
+      {
+        "packageJsonPath": "./miniprogram/package.json",
+        "miniprogramNpmDistDir": "./miniprogram/"
+      }
+    ]
   },
   "appid": "wxe85a8ca142670909",
   "projectname": "Meeting-reservation",
