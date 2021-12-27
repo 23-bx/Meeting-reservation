@@ -5,62 +5,32 @@ const { envList } = require('../../envList.js');
 Page({
   data: {
     showUploadTip: false,
-    powerList: [{
-      title: '云函数',
-      tip: '安全、免鉴权运行业务代码',
-      showItem: false,
-      item: [{
-        title: '获取OpenId',
-        page: 'getOpenId'
-      },
-      //  {
-      //   title: '微信支付'
-      // },
-       {
-        title: '生成小程序码',
-        page: 'getMiniProgramCode'
-      },
-      // {
-      //   title: '发送订阅消息',
-      // }
-    ]
-    }, {
-      title: '数据库',
-      tip: '安全稳定的文档型数据库',
-      showItem: false,
-      item: [{
-        title: '创建集合',
-        page: 'createCollection'
-      }, {
-        title: '更新记录',
-        page: 'updateRecord'
-      }, {
-        title: '查询记录',
-        page: 'selectRecord'
-      }, {
-        title: '聚合操作',
-        page: 'sumRecord'
-      }]
-    }, {
-      title: '云存储',
-      tip: '自带CDN加速文件存储',
-      showItem: false,
-      item: [{
-        title: '上传文件',
-        page: 'uploadFile'
-      }]
-    }, {
-      title: '云托管',
-      tip: '不限语言的全托管容器服务',
-      showItem: false,
-      item: [{
-        title: '部署服务',
-        page: 'deployService'
-      }]
+    nowDate: {
+      yearData: '2021',
+      monthData: '12',
+      dayData: 22,
+      weekData: 3
+    }, 
+    meetingRoom: [{
+      id: 1,
+      name: '天安厅',
+      num: 10,
+      floor: 2,
+      office: '新大厦'
+    },{
+      id: 2,
+      name: '颜卡厅',
+      num: 10,
+      floor: 14,
+      office: '新大厦'
+    },{
+      id: 3,
+      name: '动卡厅',
+      num: 15,
+      floor: 16,
+      office: '新大厦'
     }],
-    envList,
-    selectedEnv: envList[0],
-    haveCreateCollection: false
+    roomIndex: 0
   },
 
   onClickPowerInfo(e) {
@@ -138,5 +108,19 @@ Page({
       });
       wx.hideLoading();
     });
+  },
+
+  toprev() {
+    this.roomIndex--;
+    console.log('--');
+  },
+
+  tonext() {
+    this.roomIndex++;
+    console.log('++');
+  },
+
+  goReserve() {
+    console.log('立即预约');
   }
 });

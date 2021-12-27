@@ -16,12 +16,33 @@
     "pages/my/index",
     "pages/allMeetings/index"
   ],
+  "tabBar": {
+    "selectedColor": "#d81e06",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "会议室预定",
+        "iconPath": "./images/meeting.png",
+        "selectedIconPath": "./images/meeting_checked.png"
+      },
+      {
+        "pagePath": "pages/allMeetings/index",
+        "text": "我的",
+        "iconPath": "./images/user.png",
+        "selectedIconPath": "./images/user_checked.png"
+      }
+    ]
+  },
   "window": {
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#F6F6F6",
     "navigationBarTitleText": "云开发 QuickStart",
     "navigationBarTextStyle": "black"
+  },
+  "usingComponents": {
+    "van-icon": "@vant/weapp/icon/index",
+    "van-button": "@vant/weapp/button/index"
   },
   "sitemapLocation": "sitemap.json"
 }
