@@ -14,25 +14,29 @@
           <!-- 选择楼层 -->
           <view class="lineContainer"> 
             <span class="sliderTitle">选择楼层</span>
-            <van-slider class="slider" value="{{ floor }}" use-button-slot bind:change="chooseFloor" min="1" max="28" active-color="{{color.dpink}}">
+            <van-slider class="slider" value="{{ floor }}" use-button-slot bind:drag="chooseFloor" min="1" max="28" active-color="{{color.dpink}}">
               <view class="custom-button" slot="button">{{ floor }}</view>
             </van-slider>
           </view>
           <!-- 容纳人数 -->
           <view class="lineContainer"> 
             <span class="sliderTitle">容纳人数</span>
-            <van-slider class="slider" value="{{ pplNum }}" use-button-slot bind:change="choosePplNum" min="10" max="50" step="10" active-color="{{color.dpink}}">
+            <van-slider class="slider" value="{{ pplNum }}" use-button-slot bind:drag="choosePplNum" min="10" max="50" step="10" active-color="{{color.dpink}}">
               <view class="custom-button" slot="button">{{ pplNum }}</view>
             </van-slider>
           </view>
           <!-- 选择设施 -->
           <view class="lineContainer device">
             <van-checkbox-group value="{{ result }}" bind:change="getDevice" class="checkGroup">
-              <van-checkbox name="tv" shape="square" class="checkItem">电视</van-checkbox>
-              <van-checkbox name="proj" shape="square" class="checkItem">投影</van-checkbox>
-              <van-checkbox name="tabble" shape="square" class="checkItem">桌子</van-checkbox>
-              <van-checkbox name="chair" shape="square" class="checkItem">桌子</van-checkbox>
+              <van-checkbox name="tv" shape="square" class="checkItem" checked-color="{{color.lpink}}">电视</van-checkbox>
+              <van-checkbox name="proj" shape="square" class="checkItem" checked-color="{{color.lpink}}">投影</van-checkbox>
+              <van-checkbox name="tabble" shape="square" class="checkItem" checked-color="{{color.lpink}}">桌子</van-checkbox>
+              <van-checkbox name="chair" shape="square" class="checkItem" checked-color="{{color.lpink}}">桌子</van-checkbox>
             </van-checkbox-group>
+          </view>
+          <!-- 确定按钮 -->
+          <view class="lineContainer confirmBtn">
+            <van-button type="primary" block color="{{color.dpink}}">确定</van-button>
           </view>
         </van-collapse-item>
       </van-collapse>

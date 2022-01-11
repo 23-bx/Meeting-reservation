@@ -41,6 +41,10 @@
 #roomFilter .device .checkItem{
   flex: 1;
 }
+#roomFilter .confirmBtn .van-button{
+  width: 60%;
+  height: 60rpx;
+}
 #roomListContainer{
   margin-top: 400rpx;
 }

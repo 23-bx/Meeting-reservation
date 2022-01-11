@@ -4,8 +4,9 @@ import color from '../../utils/styleConst.js'
 Page({
   data: {
     date:'', //calendar
-    show:false, //calendar
+    showCal:false, //calendar
     roomCondition:'',//条件筛选会议室
+    activeNames:[],
     floor:1, //楼层选择
     pplNum:10,
     showUploadTip: false,
@@ -37,42 +38,37 @@ Page({
   },
   // 日历组件
   showCalendar(){
-    this.setData({ show: true });
+    this.setData({ showCal: true });
   },
   closeCalendar() {
-    this.setData({ show: false });
+    this.setData({ showCal: false });
   },
   formatDate(date) {
-    console.log(date.getMonth()+1)
-    console.log(date.getDate())
     date = new Date(date);
-    console.log(date)
     return `${date.getMonth() + 1}月${date.getDate()}日`;
   },
   confirmDate(event) {
-    console.log(this.formatDate(event.detail))
     this.setData({
-      show: false,
+      showCal: false,
       date: this.formatDate(event.detail),
     });
   },
   // 日历组件结束
   // 条件筛选
   roomFilter(event) {
+    console.log(event.detail)
     this.setData({
       activeNames: event.detail,
     });
   },
   chooseFloor(event) {  //楼层选择
-    console.log(event.detail)
     this.setData({
-      floor: event.detail,
+      floor: event.detail.value,
     });
   },
   choosePplNum(event) {  //楼层选择
-    console.log(event.detail)
     this.setData({
-      pplNum: event.detail,
+      pplNum: event.detail.value,
     });
   },
   getDevice(event){
