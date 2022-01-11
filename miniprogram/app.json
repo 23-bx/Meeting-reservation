@@ -1,20 +1,10 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/getOpenId/index",
-    "pages/getMiniProgramCode/index",
-    "pages/deployService/index",
-    "pages/createCollection/index",
-    "pages/uploadFile/index",
-    "pages/selectRecord/index",
-    "pages/updateRecord/index",
-    "pages/updateRecordResult/index",
-    "pages/updateRecordSuccess/index",
-    "pages/sumRecord/index",
-    "pages/sumRecordResult/index",
     "pages/createMeeting/index",
-    "pages/my/index",
-    "pages/allMeetings/index"
+    "pages/allMeetings/index",
+    "pages/my/my",
+    "components/CardView/CardView"
   ],
   "tabBar": {
     "selectedColor": "#d81e06",
@@ -22,27 +12,34 @@
       {
         "pagePath": "pages/index/index",
         "text": "会议室预定",
-        "iconPath": "./images/meeting.png",
-        "selectedIconPath": "./images/meeting_checked.png"
+        "iconPath": "./images/tabbar/meeting.png",
+        "selectedIconPath": "./images/tabbar/meeting-a.png"
       },
       {
-        "pagePath": "pages/allMeetings/index",
+        "pagePath": "pages/my/my",
         "text": "我的",
-        "iconPath": "./images/user.png",
-        "selectedIconPath": "./images/user_checked.png"
+        "iconPath": "./images/tabbar/my.png",
+        "selectedIconPath": "./images/tabbar/my-a.png"
       }
     ]
   },
   "window": {
-    "backgroundColor": "#F6F6F6",
-    "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#F6F6F6",
-    "navigationBarTitleText": "云开发 QuickStart",
-    "navigationBarTextStyle": "black"
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "会议室列表",
+    "backgroundTextStyle": "light"
   },
   "usingComponents": {
     "van-icon": "@vant/weapp/icon/index",
-    "van-button": "@vant/weapp/button/index"
+    "van-button": "@vant/weapp/button/index",
+    "van-cell":"@vant/weapp/cell/index",
+    "van-calendar": "@vant/weapp/calendar/index",
+    "van-search": "@vant/weapp/search/index",
+    "van-collapse": "@vant/weapp/collapse/index",
+    "van-collapse-item": "@vant/weapp/collapse-item/index",
+    "van-slider": "@vant/weapp/slider/index",
+    "van-checkbox": "@vant/weapp/checkbox/index",
+    "van-checkbox-group": "@vant/weapp/checkbox-group/index"
   },
   "sitemapLocation": "sitemap.json"
 }

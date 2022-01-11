@@ -1,16 +1,14 @@
 // index.js
 // const app = getApp()
-const { envList } = require('../../envList.js');
-
+import color from '../../utils/styleConst.js'
 Page({
   data: {
+    date:'', //calendar
+    show:false, //calendar
+    roomCondition:'',//条件筛选会议室
+    floor:1, //楼层选择
+    pplNum:10,
     showUploadTip: false,
-    nowDate: {
-      yearData: '2021',
-      monthData: '12',
-      dayData: 22,
-      weekData: 3
-    }, 
     meetingRoom: [{
       id: 1,
       name: '天安厅',
@@ -32,94 +30,58 @@ Page({
     }],
     roomIndex: 0
   },
-
-  onClickPowerInfo(e) {
-    const index = e.currentTarget.dataset.index;
-    const powerList = this.data.powerList;
-    powerList[index].showItem = !powerList[index].showItem;
-    if (powerList[index].title === '数据库' && !this.data.haveCreateCollection) {
-      this.onClickDatabase(powerList);
-    } else {
-      this.setData({
-        powerList
-      });
-    }
-  },
-
-  onChangeShowEnvChoose() {
-    wx.showActionSheet({
-      itemList: this.data.envList.map(i => i.alias),
-      success: (res) => {
-        this.onChangeSelectedEnv(res.tapIndex);
-      },
-      fail (res) {
-        console.log(res.errMsg);
-      }
-    });
-  },
-
-  onChangeSelectedEnv(index) {
-    if (this.data.selectedEnv.envId === this.data.envList[index].envId) {
-      return;
-    }
-    const powerList = this.data.powerList;
-    powerList.forEach(i => {
-      i.showItem = false;
-    });
+  onLoad(){
     this.setData({
-      selectedEnv: this.data.envList[index],
-      powerList,
-      haveCreateCollection: false
+      color
+    })
+  },
+  // 日历组件
+  showCalendar(){
+    this.setData({ show: true });
+  },
+  closeCalendar() {
+    this.setData({ show: false });
+  },
+  formatDate(date) {
+    console.log(date.getMonth()+1)
+    console.log(date.getDate())
+    date = new Date(date);
+    console.log(date)
+    return `${date.getMonth() + 1}月${date.getDate()}日`;
+  },
+  confirmDate(event) {
+    console.log(this.formatDate(event.detail))
+    this.setData({
+      show: false,
+      date: this.formatDate(event.detail),
     });
   },
-
-  jumpPage(e) {
-    wx.navigateTo({
-      url: `/pages/${e.currentTarget.dataset.page}/index?envId=${this.data.selectedEnv.envId}`,
+  // 日历组件结束
+  // 条件筛选
+  roomFilter(event) {
+    this.setData({
+      activeNames: event.detail,
     });
   },
-
-  onClickDatabase(powerList) {
-    wx.showLoading({
-      title: '',
-    });
-    wx.cloud.callFunction({
-      name: 'quickstartFunctions',
-      config: {
-        env: this.data.selectedEnv.envId
-      },
-      data: {
-        type: 'createCollection'
-      }
-    }).then((resp) => {
-      if (resp.result.success) {
-        this.setData({
-          haveCreateCollection: true
-        });
-      }
-      this.setData({
-        powerList
-      });
-      wx.hideLoading();
-    }).catch((e) => {
-      console.log(e);
-      this.setData({
-        showUploadTip: true
-      });
-      wx.hideLoading();
+  chooseFloor(event) {  //楼层选择
+    console.log(event.detail)
+    this.setData({
+      floor: event.detail,
     });
   },
-
-  toprev() {
-    this.roomIndex--;
-    console.log('--');
+  choosePplNum(event) {  //楼层选择
+    console.log(event.detail)
+    this.setData({
+      pplNum: event.detail,
+    });
   },
-
-  tonext() {
-    this.roomIndex++;
-    console.log('++');
+  getDevice(event){
+    console.log(event.detail)
+    this.setData({
+      result: event.detail,
+    });
   },
-
+  // 条件筛选结束
   goReserve() {
     console.log('立即预约');
   }

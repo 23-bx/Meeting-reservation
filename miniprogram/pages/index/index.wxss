@@ -1,3 +1,49 @@
+#meetingPage{
+  padding-top: 180rpx;
+}
+#selection{
+  width: 100%;
+  position: fixed;
+  top: 0;
+  background-color: #fff;
+  z-index: 10;
+}
+#datePicker{
+  /* width: 50%; */
+  /* float: left; */
+}
+#roomFilter{
+  /* float: left; */
+  /* width: 50%; */
+  width: 100%;
+  
+}
+#roomFilter .sliderTitle{
+  width: 10%;
+}
+#roomFilter .slider{
+  vertical-align: middle;
+  display: inline-block;
+  width: 75%;
+  margin-left: 45rpx;
+}
+#roomFilter .slider .custom-button{
+  padding:10rpx 20rpx;
+  color: white;
+  background-color: #f5cec7;
+}
+#roomFilter .lineContainer{
+  height: 80rpx;
+}
+#roomFilter .device .van-checkbox-group{
+  display: flex;
+}
+#roomFilter .device .checkItem{
+  flex: 1;
+}
+#roomListContainer{
+  margin-top: 400rpx;
+}
 .meeting_date {
   height: 2.5rem;
   background: #d8d8d8;

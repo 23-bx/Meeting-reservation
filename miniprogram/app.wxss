@@ -18,9 +18,8 @@ button::after{
   border: none;
 }
 
-
 page {
-  background: #f6f6f6;
+  background: #eeeeee;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

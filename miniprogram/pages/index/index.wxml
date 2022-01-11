@@ -1,17 +1,45 @@
-<view class="meeting">
-  <view class="meeting_date">
-    {{nowDate.yearData}}年{{nowDate.monthData}}月{{nowDate.dayData}}日 星期{{nowDate.weekData}}
-  </view>
-  <view class="meeting_room" wx:for="(item, index) in meetingRoom" wx:key="index">
-    <view class="item_left">
-      <text class="title">{{meetingRoom[index].name}}</text>
-      <text class="describe">{{meetingRoom[index].office}}{{meetingRoom[index].floor}}楼  可容纳：{{meetingRoom[index].num}}人</text>
+<view id="meetingPage">
+  <view id="selection">
+    <view id="datePicker">
+      <van-cell title="选择会议日期" value="{{ date }}" bind:click="showCalendar" />
+      <van-calendar show="{{ show }}" color="{{color.dpink}}" bind:close="closeCalendar" bind:confirm="confirmDate"></van-calendar>
     </view>
-    <view class="item_right">
-      <van-button round type="info" size="small" color="#d81e06" bind:click="goReserve">立即预约</van-button>
+    <view id="roomSearch">
+      <van-search value="{{ value }}" placeholder="请输入会议室名称关键词" show-action bind:search="onSearch" bind:cancel="onCancel" />
     </view>
-    <!-- <van-icon name="arrow-left" bind:click="toprev" />
-    <text class="meeting_room_text">{{meetingRoom[roomIndex].name}}</text>
-    <van-icon name="arrow" bind:click="tonext" /> -->
+    <!-- 筛选条件 -->
+    <view id="roomFilter">
+      <van-collapse value="{{ activeNames }}" bind:change="roomFilter">
+        <van-collapse-item title="更多筛选条件" name="1">
+          <!-- 选择楼层 -->
+          <view class="lineContainer"> 
+            <span class="sliderTitle">选择楼层</span>
+            <van-slider class="slider" value="{{ floor }}" use-button-slot bind:change="chooseFloor" min="1" max="28" active-color="{{color.dpink}}">
+              <view class="custom-button" slot="button">{{ floor }}</view>
+            </van-slider>
+          </view>
+          <!-- 容纳人数 -->
+          <view class="lineContainer"> 
+            <span class="sliderTitle">容纳人数</span>
+            <van-slider class="slider" value="{{ pplNum }}" use-button-slot bind:change="choosePplNum" min="10" max="50" step="10" active-color="{{color.dpink}}">
+              <view class="custom-button" slot="button">{{ pplNum }}</view>
+            </van-slider>
+          </view>
+          <!-- 选择设施 -->
+          <view class="lineContainer device">
+            <van-checkbox-group value="{{ result }}" bind:change="getDevice" class="checkGroup">
+              <van-checkbox name="tv" shape="square" class="checkItem">电视</van-checkbox>
+              <van-checkbox name="proj" shape="square" class="checkItem">投影</van-checkbox>
+              <van-checkbox name="tabble" shape="square" class="checkItem">桌子</van-checkbox>
+              <van-checkbox name="chair" shape="square" class="checkItem">桌子</van-checkbox>
+            </van-checkbox-group>
+          </view>
+        </van-collapse-item>
+      </van-collapse>
+    </view>
+    <!-- 筛选条件结束 -->
   </view>
+  <!-- <card-view id="roomListContainer">
+  </card-view> -->
+
 </view>
