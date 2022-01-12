@@ -1,5 +1,5 @@
 #meetingPage{
-  padding-top: 180rpx;
+  padding-top: 220rpx;
 }
 .calendar {
   --calendar-height: 500px;
@@ -10,6 +10,7 @@
   top: 0;
   background-color: #fff;
   z-index: 10;
+  box-shadow: 1rpx 7rpx 10rpx #eee;
 }
 #moreCondition .van-cell__title{
   flex: 1;

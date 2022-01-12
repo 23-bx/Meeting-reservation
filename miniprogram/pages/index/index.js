@@ -12,9 +12,10 @@ Page({
     ],
     office: 0, //初始显示全部职场
     condition:{},
-    conditionStr: '更多筛选条件', //条件筛选会议室结果
+    conditionStr: '更多筛选', //条件筛选会议室结果
     floor: 1, //楼层选择
     pplNum: 10, //容纳人数
+    rooms:{}
   },
   onLoad() {
     this.setData({
@@ -23,13 +24,13 @@ Page({
     this.getOffices();
     this.getRooms();
   },
-  changeOffice(event) {
-    const {
-      picker,
-      value,
-      index
-    } = event.detail;
-    Toast(`当前值：${value}, 当前索引：${index}`);
+  changeOffice(event) { //职场选择
+    let target = 'condition.office'
+    console.log('event',event)
+    this.setData({
+      [target]: event.detail,
+    });
+    this.getRooms();
   },
   // 条件筛选
   chooseFloor(event) { //楼层选择
@@ -48,8 +49,8 @@ Page({
       result: event.detail,
     });
   },
-  resetCondition(){
-    let conditionStr = '更多筛选条件'
+  resetCondition(){  //重置筛选
+    let conditionStr = '更多筛选'
     this.setData({
       conditionStr,
       condition:{},
@@ -72,8 +73,10 @@ Page({
       conditionStr,
       condition
     })
+    this.getRooms();
   },
   // 条件筛选结束
+
   // 日历组件
   formatDate(date) {
     date = new Date(date);
@@ -87,6 +90,7 @@ Page({
     });
   },
   // 日历组件结束
+
   getOffices(){ //获取职场列表
     wx.cloud.callFunction({
       name:'getOffices',
@@ -96,8 +100,8 @@ Page({
         console.log(res.result.data)
         res.result.data.map(item=>{
           officeList.push({
-            text:item.name,
-            value:item._id
+            text:item.office_name,
+            value:item.office_id
           })
         })
         this.setData({
@@ -109,16 +113,21 @@ Page({
       }
     })
   },
-  getRooms(options){  //获取会议室列表
+  getRooms(){  //获取会议室列表
+    let condition = this.data.condition
+    console.log(this.data.condition)
     wx.cloud.callFunction({
       name:"getRooms",
-      data:options,
+      data:condition,
       success:res=>{
-        console.log(res.result.data)
+        console.log(res.result.list)
+        this.setData({
+          rooms:res.result.list
+        })
+      },
+      fail:err=>{
+        console.log(err)
       }
     })
-  },
-  goReserve() {
-    console.log('立即预约');
   }
 });
