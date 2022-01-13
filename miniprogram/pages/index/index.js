@@ -3,82 +3,131 @@
 import color from '../../utils/styleConst.js'
 Page({
   data: {
-    date:'', //calendar
-    showCal:false, //calendar
-    roomCondition:'',//条件筛选会议室
-    activeNames:[],
-    floor:1, //楼层选择
-    pplNum:10,
-    showUploadTip: false,
-    meetingRoom: [{
-      id: 1,
-      name: '天安厅',
-      num: 10,
-      floor: 2,
-      office: '新大厦'
-    },{
-      id: 2,
-      name: '颜卡厅',
-      num: 10,
-      floor: 14,
-      office: '新大厦'
-    },{
-      id: 3,
-      name: '动卡厅',
-      num: 15,
-      floor: 16,
-      office: '新大厦'
-    }],
-    roomIndex: 0
+    color:{},//配色
+    date: '选择日期', //calendar
+    officeList: [{  //职场列表
+        text: '全部职场',
+        value: 0
+      },
+    ],
+    office: 0, //初始显示全部职场
+    condition:{},
+    conditionStr: '更多筛选', //条件筛选会议室结果
+    floor: 1, //楼层选择
+    pplNum: 10, //容纳人数
+    rooms:{}
   },
-  onLoad(){
+  onLoad() {
     this.setData({
       color
     })
+    this.getOffices();
+    this.getRooms();
   },
-  // 日历组件
-  showCalendar(){
-    this.setData({ showCal: true });
-  },
-  closeCalendar() {
-    this.setData({ showCal: false });
-  },
-  formatDate(date) {
-    date = new Date(date);
-    return `${date.getMonth() + 1}月${date.getDate()}日`;
-  },
-  confirmDate(event) {
+  changeOffice(event) { //职场选择
+    let target = 'condition.office'
+    console.log('event',event)
     this.setData({
-      showCal: false,
-      date: this.formatDate(event.detail),
+      [target]: event.detail,
     });
+    this.getRooms();
   },
-  // 日历组件结束
   // 条件筛选
-  roomFilter(event) {
-    console.log(event.detail)
-    this.setData({
-      activeNames: event.detail,
-    });
-  },
-  chooseFloor(event) {  //楼层选择
+  chooseFloor(event) { //楼层选择
     this.setData({
       floor: event.detail.value,
     });
   },
-  choosePplNum(event) {  //楼层选择
+  choosePplNum(event) { //人数选择
     this.setData({
       pplNum: event.detail.value,
     });
   },
-  getDevice(event){
+  getDevice(event) { //设备选择
     console.log(event.detail)
     this.setData({
       result: event.detail,
     });
   },
+  resetCondition(){  //重置筛选
+    let conditionStr = '更多筛选'
+    this.setData({
+      conditionStr,
+      condition:{},
+      result:[],
+      floor:1,
+      pplNum:10
+    })
+  },
+  confirmCondition() { //筛选确定
+    this.selectComponent('#moreCondition').toggle();
+    let conditionStr = `${this.data.floor}层,${this.data.pplNum}人`;
+    if(this.data.result&&this.data.result.length>0){
+      condition += ','+this.data.result.join(',')
+    }
+    let condition = {};
+    condition.floor = this.data.floor;
+    condition.pplNum = this.data.pplNum;
+    condition.result = this.data.result;
+    this.setData({
+      conditionStr,
+      condition
+    })
+    this.getRooms();
+  },
   // 条件筛选结束
-  goReserve() {
-    console.log('立即预约');
+
+  // 日历组件
+  formatDate(date) {
+    date = new Date(date);
+    return `${date.getMonth() + 1}月${date.getDate()}日`;
+  },
+  confirmDate(event) {
+    console.log(event.detail)
+    this.selectComponent('#datePicker').toggle();
+    this.setData({
+      date: this.formatDate(event.detail),
+    });
+  },
+  // 日历组件结束
+
+  getOffices(){ //获取职场列表
+    wx.cloud.callFunction({
+      name:'getOffices',
+      data:{},
+      success:res=>{
+        let officeList = this.data.officeList;
+        console.log(res.result.data)
+        res.result.data.map(item=>{
+          officeList.push({
+            text:item.office_name,
+            value:item.office_id
+          })
+        })
+        this.setData({
+          officeList
+        })
+      },
+      fail(res){
+        console.log(res)
+      }
+    })
+  },
+  getRooms(){  //获取会议室列表
+    let condition = this.data.condition
+    console.log(this.data.condition)
+    wx.cloud.callFunction({
+      name:"getRooms",
+      data:condition,
+      success:res=>{
+        console.log(res.result.list)
+        this.setData({
+          rooms:res.result.list
+        })
+      },
+      fail:err=>{
+        console.log(err)
+      }
+    })
   }
 });

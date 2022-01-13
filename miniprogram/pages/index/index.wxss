@@ -1,5 +1,8 @@
 #meetingPage{
-  padding-top: 180rpx;
+  padding-top: 220rpx;
+}
+.calendar {
+  --calendar-height: 500px;
 }
 #selection{
   width: 100%;
@@ -7,43 +10,45 @@
   top: 0;
   background-color: #fff;
   z-index: 10;
+  box-shadow: 1rpx 7rpx 10rpx #eee;
 }
-#datePicker{
-  /* width: 50%; */
-  /* float: left; */
-}
-#roomFilter{
-  /* float: left; */
-  /* width: 50%; */
-  width: 100%;
-  
-}
-#roomFilter .sliderTitle{
-  width: 10%;
-}
-#roomFilter .slider{
-  vertical-align: middle;
-  display: inline-block;
-  width: 75%;
-  margin-left: 45rpx;
-}
-#roomFilter .slider .custom-button{
-  padding:10rpx 20rpx;
-  color: white;
-  background-color: #f5cec7;
-}
-#roomFilter .lineContainer{
-  height: 80rpx;
-}
-#roomFilter .device .van-checkbox-group{
-  display: flex;
-}
-#roomFilter .device .checkItem{
+#moreCondition .van-cell__title{
   flex: 1;
 }
-#roomFilter .confirmBtn .van-button{
-  width: 60%;
-  height: 60rpx;
+#moreCondition .van-cell__value{
+  flex: 3;
+  padding: 0 30rpx;
+}
+#moreCondition .van-slider{
+  /* width: 100%; */
+}
+#moreCondition .van-slider{
+  /* width: 100%; */
+  margin-top: 20rpx;
+}
+#moreCondition .van-slider .custom-button{
+  padding: 0 10rpx;
+  color: #fff;
+  background-color: #e79796;
+}
+#moreCondition .van-checkbox-group .van-checkbox{
+  flex: 1;
+}
+#moreCondition .van-checkbox-group .van-checkbox__label{
+  padding: 0;
+  margin: 10rpx 50rpx 10rpx 20rpx;
+}
+#moreCondition .btn-container{
+  display: flex;
+  padding: 5px 16px;
+}
+#moreCondition .btn-container van-button{
+  flex: 1;
+  text-align: center;
+}
+#moreCondition .btn-container button.van-button--normal{
+  width: 80%;
+  height: 65rpx;
 }
 #roomListContainer{
   margin-top: 400rpx;

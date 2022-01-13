@@ -1,49 +1,56 @@
 <view id="meetingPage">
   <view id="selection">
-    <view id="datePicker">
-      <van-cell title="选择会议日期" value="{{ date }}" bind:click="showCalendar" />
-      <van-calendar show="{{ show }}" color="{{color.dpink}}" bind:close="closeCalendar" bind:confirm="confirmDate"></van-calendar>
+    <view id="officePicker">
+      <van-dropdown-menu active-color="{{color.dpink}}">
+        <van-dropdown-item value="{{ office }}" options="{{ officeList }}" bind:change="changeOffice" />
+        <van-dropdown-item title="{{date}}" value="{{ date }}" id="datePicker">
+          <van-calendar show-title="{{false}}" color="{{color.dpink}}" poppable="{{ false }}" show-confirm="{{ false }}" bind:select="confirmDate" class="calendar" />
+        </van-dropdown-item>
+        <van-dropdown-item id="moreCondition" title="{{conditionStr}}">
+          <van-cell title="选择楼层">
+            <van-slider class="slider" value="{{ floor }}" use-button-slot bind:drag="chooseFloor" min="1" max="28" active-color="{{color.dpink}}">
+              <view class="custom-button" slot="button">{{ floor }}</view>
+            </van-slider>
+          </van-cell>
+          <van-cell title="最少容纳人数">
+            <van-slider class="slider" value="{{ pplNum }}" use-button-slot bind:drag="choosePplNum" min="10" max="50" step="10" active-color="{{color.dpink}}">
+              <view class="custom-button" slot="button">{{ pplNum }}</view>
+            </van-slider>
+          </van-cell>
+          <van-cell title="设备筛选">
+            <van-checkbox-group value="{{ result }}" bind:change="getDevice" class="checkGroup">
+              <view style="display: flex;">
+                <van-checkbox name="电视" shape="square" class="checkItem" checked-color="{{color.lpink}}">电视</van-checkbox>
+                <van-checkbox name="投影" shape="square" class="checkItem" checked-color="{{color.lpink}}">投影</van-checkbox>
+              </view>
+              <view style="display: flex;">
+                <van-checkbox name="桌子" shape="square" class="checkItem" checked-color="{{color.lpink}}">桌子</van-checkbox>
+                <van-checkbox name="椅子" shape="square" class="checkItem" checked-color="{{color.lpink}}">椅子</van-checkbox>
+              </view>
+            </van-checkbox-group>
+          </van-cell>
+          <view class="btn-container">
+            <van-button type="default" bind:click="resetCondition" color="{{color.green}}">
+              重置
+            </van-button>
+            <van-button type="default" bind:click="confirmCondition" color="{{color.dpink}}">
+              确认
+            </van-button>
+          </view>
+        </van-dropdown-item>
+      </van-dropdown-menu>
     </view>
     <view id="roomSearch">
       <van-search value="{{ value }}" placeholder="请输入会议室名称关键词" show-action bind:search="onSearch" bind:cancel="onCancel" />
     </view>
-    <!-- 筛选条件 -->
-    <view id="roomFilter">
-      <van-collapse value="{{ activeNames }}" bind:change="roomFilter">
-        <van-collapse-item title="更多筛选条件" name="1">
-          <!-- 选择楼层 -->
-          <view class="lineContainer"> 
-            <span class="sliderTitle">选择楼层</span>
-            <van-slider class="slider" value="{{ floor }}" use-button-slot bind:drag="chooseFloor" min="1" max="28" active-color="{{color.dpink}}">
-              <view class="custom-button" slot="button">{{ floor }}</view>
-            </van-slider>
-          </view>
-          <!-- 容纳人数 -->
-          <view class="lineContainer"> 
-            <span class="sliderTitle">容纳人数</span>
-            <van-slider class="slider" value="{{ pplNum }}" use-button-slot bind:drag="choosePplNum" min="10" max="50" step="10" active-color="{{color.dpink}}">
-              <view class="custom-button" slot="button">{{ pplNum }}</view>
-            </van-slider>
-          </view>
-          <!-- 选择设施 -->
-          <view class="lineContainer device">
-            <van-checkbox-group value="{{ result }}" bind:change="getDevice" class="checkGroup">
-              <van-checkbox name="tv" shape="square" class="checkItem" checked-color="{{color.lpink}}">电视</van-checkbox>
-              <van-checkbox name="proj" shape="square" class="checkItem" checked-color="{{color.lpink}}">投影</van-checkbox>
-              <van-checkbox name="tabble" shape="square" class="checkItem" checked-color="{{color.lpink}}">桌子</van-checkbox>
-              <van-checkbox name="chair" shape="square" class="checkItem" checked-color="{{color.lpink}}">桌子</van-checkbox>
-            </van-checkbox-group>
-          </view>
-          <!-- 确定按钮 -->
-          <view class="lineContainer confirmBtn">
-            <van-button type="primary" block color="{{color.dpink}}">确定</van-button>
-          </view>
-        </van-collapse-item>
-      </van-collapse>
-    </view>
-    <!-- 筛选条件结束 -->
   </view>
-  <!-- <card-view id="roomListContainer">
-  </card-view> -->
-
+  <van-cell-group>
+    <van-cell wx:for="{{rooms}}" title="{{item.room_name}}" value="{{item.office_name}}" use-label-slot wx:key="_id">
+      <view slot="label">
+        可容纳{{item.chair}}人
+        {{item.floor}}层
+        设备有{{item.device}}
+      </view>
+    </van-cell>
+  </van-cell-group>
 </view>
