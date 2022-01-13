@@ -1,2 +1,11 @@
 <!--pages/my/my.wxml-->
-<text>pages/my/my.wxml</text>
+<van-card
+  desc="动卡需求评审"
+  title="需求评审会"
+  thumb="../../images/tabbar/test.jpg"
+>
+  <view slot="footer">
+    <van-button size="mini">邀请参会</van-button>
+    <van-button size="mini">取消会议</van-button>
+  </view>
+</van-card>
