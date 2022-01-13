@@ -11,10 +11,12 @@ Page({
       },
     ],
     office: 0, //初始显示全部职场
+    floor:1,
+    floorColor:'#eeeeee',
+    chair:10,
+    device:[],
     condition:{},
     conditionStr: '更多筛选', //条件筛选会议室结果
-    floor: 1, //楼层选择
-    pplNum: 10, //容纳人数
     rooms:{}
   },
   onLoad() {
@@ -25,53 +27,67 @@ Page({
     this.getRooms();
   },
   changeOffice(event) { //职场选择
-    let target = 'condition.office'
-    console.log('event',event)
+    let target = 'condition.office_id'
     this.setData({
-      [target]: event.detail,
+      [target]: event.detail
     });
     this.getRooms();
   },
   // 条件筛选
   chooseFloor(event) { //楼层选择
+    let target = 'condition.floor'
     this.setData({
+      [target]:event.detail.value,
       floor: event.detail.value,
+      floorColor:this.data.color.dpink
     });
   },
   choosePplNum(event) { //人数选择
     this.setData({
-      pplNum: event.detail.value,
+      chair: event.detail.value
     });
   },
   getDevice(event) { //设备选择
-    console.log(event.detail)
     this.setData({
-      result: event.detail,
+      device:event.detail
     });
   },
   resetCondition(){  //重置筛选
+    this.selectComponent('#moreCondition').toggle();
     let conditionStr = '更多筛选'
+    let office_id = 'condition.office_id'
+    let temp = this.data.condition.office_id
     this.setData({
       conditionStr,
       condition:{},
-      result:[],
+      [office_id]:temp,
       floor:1,
-      pplNum:10
+      floorColor:'#eee',
+      chair:10,
+      device:[]
     })
+    this.getRooms();
   },
   confirmCondition() { //筛选确定
+    console.log(this.data.condition)
     this.selectComponent('#moreCondition').toggle();
-    let conditionStr = `${this.data.floor}层,${this.data.pplNum}人`;
-    if(this.data.result&&this.data.result.length>0){
-      condition += ','+this.data.result.join(',')
+    let conditionArr = []
+    if(this.data.condition.floor){
+      conditionArr.push(`${this.data.floor}层`)
     }
-    let condition = {};
-    condition.floor = this.data.floor;
-    condition.pplNum = this.data.pplNum;
-    condition.result = this.data.result;
+    if(this.data.chair){
+      conditionArr.push(`${this.data.chair}人`)
+    }
+    if(this.data.device&&this.data.device.length>0){
+      conditionArr.push(this.data.device.join(','))
+    }
+    let conditionStr = conditionArr.join(',')
+    const chair = 'condition.chair'
+    const device = 'condition.device'
     this.setData({
       conditionStr,
-      condition
+      [chair]:this.data.chair,
+      [device]:this.data.device
     })
     this.getRooms();
   },
@@ -115,12 +131,12 @@ Page({
   },
   getRooms(){  //获取会议室列表
     let condition = this.data.condition
-    console.log(this.data.condition)
+    console.log(this.data.condition,'condition')
     wx.cloud.callFunction({
       name:"getRooms",
       data:condition,
       success:res=>{
-        console.log(res.result.list)
+        console.log(res.result.list,'res')
         this.setData({
           rooms:res.result.list
         })
