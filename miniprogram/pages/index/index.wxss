@@ -19,9 +19,9 @@
   flex: 3;
   padding: 0 30rpx;
 }
-#moreCondition .van-slider{
-  /* width: 100%; */
-}
+/* #moreCondition .van-slider{
+  width: 100%;
+} */
 #moreCondition .van-slider{
   /* width: 100%; */
   margin-top: 20rpx;
@@ -71,7 +71,8 @@
   border-radius: 10rpx;
 }  
 #roomItem .item_left{
-  width: 40%;
+  min-width: 40%;
+  max-width: 42%;
   height: 140rpx;
   margin: auto 20rpx;
   display: flex;
