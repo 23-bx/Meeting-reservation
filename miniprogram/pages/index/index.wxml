@@ -44,7 +44,7 @@
       <van-search value="{{ value }}" placeholder="请输入会议室名称关键词" show-action bind:search="onSearch" bind:cancel="onCancel" />
     </view>
   </view>
-  <van-cell-group>
+  <!-- <van-cell-group>
     <van-cell wx:for="{{rooms}}" title="{{item.room_name}}" value="{{item.office_name}}" use-label-slot wx:key="_id">
       <view slot="label">
         可容纳{{item.chair}}人
@@ -52,5 +52,19 @@
         设备有{{item.device}}
       </view>
     </van-cell>
-  </van-cell-group>
+  </van-cell-group> -->
+  <view id="roomItem" wx:for="{{rooms}}">
+    <image src="../../images/tabbar/meeting-room.jpg"></image>
+    <view class="item_left">
+      <text class="item_left_name">{{item.room_name}}</text>
+      <van-tag plain type="primary" color="#FF3745">{{item.device}}</van-tag>
+      <text class="item_left_desc">
+        {{item.floor}}F   可容纳{{item.chair}}人
+      </text>
+    </view>
+    <view class="item_right">
+      <text class="item_right_desc">{{item.office_name}}</text>
+      <button class="item_right_btn">立即预约</button>
+    </view>
+  </view>
 </view>
