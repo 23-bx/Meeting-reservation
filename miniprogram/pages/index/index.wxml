@@ -19,14 +19,7 @@
           </van-cell>
           <van-cell title="设备筛选">
             <van-checkbox-group value="{{ device }}" bind:change="getDevice" class="checkGroup">
-              <view style="display: flex;">
-                <van-checkbox name="电视" shape="square" class="checkItem" checked-color="{{color.lpink}}">电视</van-checkbox>
-                <van-checkbox name="投影" shape="square" class="checkItem" checked-color="{{color.lpink}}">投影</van-checkbox>
-              </view>
-              <view style="display: flex;">
-                <van-checkbox name="桌子" shape="square" class="checkItem" checked-color="{{color.lpink}}">桌子</van-checkbox>
-                <van-checkbox name="椅子" shape="square" class="checkItem" checked-color="{{color.lpink}}">椅子</van-checkbox>
-              </view>
+              <van-checkbox style="float: left;width: 50%;" wx:for="{{deviceList}}" name="{{item.device_bit}}" shape="square" class="checkItem" checked-color="{{color.lpink}}" wx:key="device_id">{{item.device_name}}</van-checkbox>
             </van-checkbox-group>
           </van-cell>
           <view class="btn-container">

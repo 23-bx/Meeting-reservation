@@ -32,6 +32,10 @@ exports.main = async (event, context) => {
     .match(
       condition
     )
+    .sort({
+      floor:1,
+      chair:1
+    })
     .replaceRoot({
       newRoot:$.mergeObjects([$.arrayElemAt(['$office',0]),"$$ROOT"])
     })

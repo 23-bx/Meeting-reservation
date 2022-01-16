@@ -1,29 +1,30 @@
 // index.js
 // const app = getApp()
 import color from '../../utils/styleConst.js'
+import url from '../../utils/url.js'
 Page({
   data: {
-    color:{},//配色
+    color: {}, //配色
     date: '选择日期', //calendar
-    officeList: [{  //职场列表
-        text: '全部职场',
-        value: 0
-      },
-    ],
+    officeList: [{ //职场列表
+      text: '全部职场',
+      value: 0
+    }, ],
     office: 0, //初始显示全部职场
-    floor:1,
-    floorColor:'#eeeeee',
-    chair:10,
-    device:[],
-    condition:{},
+    floor: 1,
+    floorColor: '#eeeeee',
+    chair: 10,
+    device: [],
+    condition: {},
     conditionStr: '更多筛选', //条件筛选会议室结果
-    rooms:{}
+    rooms: {}
   },
   onLoad() {
     this.setData({
       color
     })
     this.getOffices();
+    this.getDevices();
     this.getRooms();
   },
   changeOffice(event) { //职场选择
@@ -37,9 +38,9 @@ Page({
   chooseFloor(event) { //楼层选择
     let target = 'condition.floor'
     this.setData({
-      [target]:event.detail.value,
+      [target]: event.detail.value,
       floor: event.detail.value,
-      floorColor:this.data.color.dpink
+      floorColor: this.data.color.dpink
     });
   },
   choosePplNum(event) { //人数选择
@@ -48,23 +49,25 @@ Page({
     });
   },
   getDevice(event) { //设备选择
+    let deviceCount = event.detail.reduce(function(a,b){return parseInt(a)+parseInt(b)},0);
     this.setData({
-      device:event.detail
+      device: event.detail,
+      deviceCount
     });
   },
-  resetCondition(){  //重置筛选
+  resetCondition() { //重置筛选
     this.selectComponent('#moreCondition').toggle();
     let conditionStr = '更多筛选'
     let office_id = 'condition.office_id'
     let temp = this.data.condition.office_id
     this.setData({
       conditionStr,
-      condition:{},
-      [office_id]:temp,
-      floor:1,
-      floorColor:'#eee',
-      chair:10,
-      device:[]
+      condition: {},
+      [office_id]: temp,
+      floor: 1,
+      floorColor: '#eee',
+      chair: 10,
+      device: []
     })
     this.getRooms();
   },
@@ -72,13 +75,13 @@ Page({
     console.log(this.data.condition)
     this.selectComponent('#moreCondition').toggle();
     let conditionArr = []
-    if(this.data.condition.floor){
+    if (this.data.condition.floor) {
       conditionArr.push(`${this.data.floor}层`)
     }
-    if(this.data.chair){
+    if (this.data.chair) {
       conditionArr.push(`${this.data.chair}人`)
     }
-    if(this.data.device&&this.data.device.length>0){
+    if (this.data.device && this.data.device.length > 0) {
       conditionArr.push(this.data.device.join(','))
     }
     let conditionStr = conditionArr.join(',')
@@ -86,8 +89,8 @@ Page({
     const device = 'condition.device'
     this.setData({
       conditionStr,
-      [chair]:this.data.chair,
-      [device]:this.data.device
+      [chair]: this.data.chair,
+      [device]: this.data.deviceCount
     })
     this.getRooms();
   },
@@ -107,42 +110,54 @@ Page({
   },
   // 日历组件结束
 
-  getOffices(){ //获取职场列表
-    wx.cloud.callFunction({
-      name:'getOffices',
-      data:{},
-      success:res=>{
+  getOffices() { //获取职场列表
+    wx.request({
+      url: url.getOffice,
+      method: "GET",
+      data: {},
+      success: res=> {
+        console.log(res.data)
         let officeList = this.data.officeList;
-        console.log(res.result.data)
-        res.result.data.map(item=>{
+        res.data.map(item => {
           officeList.push({
-            text:item.office_name,
-            value:item.office_id
+            text: item.office_name,
+            value: item.office_id
           })
         })
         this.setData({
           officeList
         })
-      },
-      fail(res){
-        console.log(res)
       }
     })
   },
-  getRooms(){  //获取会议室列表
+  getDevices(){
+    wx.request({
+      url: url.getDevice,
+      method: "GET",
+      success: res=> {
+        console.log(res.data,'device-res')
+        if(Array.isArray(res.data)){
+          this.setData({
+            deviceList:res.data
+          })
+        }
+      }
+    })
+  },
+  getRooms() { //获取会议室列表
     let condition = this.data.condition
-    console.log(this.data.condition,'condition')
-    wx.cloud.callFunction({
-      name:"getRooms",
-      data:condition,
-      success:res=>{
-        console.log(res.result.list,'res')
-        this.setData({
-          rooms:res.result.list
-        })
-      },
-      fail:err=>{
-        console.log(err)
+    console.log(this.data.condition, 'condition')
+    wx.request({
+      url: url.getRoom,
+      method: "GET",
+      data: condition,
+      success: res=> {
+        console.log(res.data,'res')
+        if(Array.isArray(res.data)){
+          this.setData({
+            rooms:res.data
+          })
+        }
       }
     })
   }
