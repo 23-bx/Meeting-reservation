@@ -19,9 +19,9 @@
   flex: 3;
   padding: 0 30rpx;
 }
-#moreCondition .van-slider{
-  /* width: 100%; */
-}
+/* #moreCondition .van-slider{
+  width: 100%;
+} */
 #moreCondition .van-slider{
   /* width: 100%; */
   margin-top: 20rpx;
@@ -53,36 +53,60 @@
 #roomListContainer{
   margin-top: 400rpx;
 }
-.meeting_date {
-  height: 2.5rem;
-  background: #d8d8d8;
+#roomItem{
+  width: 95%;
+  height: 200rpx;
+  display: flex;
+  /* flex-direction: row;
+  justify-content: space-between; */
+  border-bottom: 0.5px solid #888888;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 10rpx;
+}  
+#roomItem image{
+  width: 28%;
+  height: 140rpx;
+  margin: auto 15rpx;
+  border-radius: 10rpx;
+}  
+#roomItem .item_left{
+  min-width: 40%;
+  max-width: 42%;
+  height: 140rpx;
+  margin: auto 20rpx;
+  display: flex;
+  flex-direction: column;
+}  
+#roomItem .item_right{
+  width: 20%;
+  height: 140rpx;
+  margin: auto;
   text-align: center;
-  line-height: 2.5rem;
+}  
+.item_left_name {
+  font-size: 32rpx;
+  color: #303030;
+  margin-bottom: 10rpx;
 }
-.meeting_room {
-  width: 18.5rem;
-  height: 3rem;
-  /* text-align: center; */
-  margin: 0.5rem auto;
-  border: 1px solid #d8d8d8;
-  padding: 0.2rem;
-  position: relative;
+.item_left_desc {
+  font-size: 25rpx;
+  color: #797979;
+  margin-top: -20rpx;
 }
-.item_left  {
-  position: absolute;
-  width: 400rpx;
-  float: left;
+.item_right_btn {
+  width: 125rpx;
+  height: 53rpx;
+  color: #fff;
+  background: #FF3745;
+  text-align: center;
+  line-height: 53rpx;
+  padding: 0;
+  font-size: 25rpx;
+  font-weight: 400;
+  margin: 35rpx auto;
 }
-.item_left .title {
-  display: block;
-  font-size: 40rpx;
-}
-.item_left .describe {
+.item_right_desc {
   font-size: 27rpx;
-  color: #2a2a01;
+  color: #888;
 }
-.item_right  {
-  position: absolute;
-  right: 0.2rem;
-  top: 0.8rem;
-}   
