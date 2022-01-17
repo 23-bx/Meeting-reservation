@@ -53,12 +53,71 @@
 #roomListContainer{
   margin-top: 400rpx;
 }
-#roomItem{
+.roomItem{
+  position: relative;
+}
+.roomItem .label{
+  /* min-height: 200rpx; */
+  padding-bottom: 20rpx;
+  display: flex;
+}
+.roomItem .label .roomMsg{
+  flex:3;
+  position: relative;
+}
+.roomItem .label .roomMsg .title{
+  font-size: 30rpx;
+  color: #000;
+  margin: 20rpx 0;
+}
+.roomItem .label .roomMsg .position{
+  position: absolute;
+  right: 20rpx;
+  top: 20rpx;
+}
+.roomItem .label .roomMsg .chair{
+  font-size: 28rpx;
+  position: absolute;
+  right: 20rpx;
+  top: 70rpx;
+}
+.roomItem .label .roomMsg .device{
+  width: 70%;
+}
+.roomItem .label .roomMsg .record{
+  margin-top: 20rpx;
+}
+.roomItem .label .roomMsg .record .timeBox{
+  display: inline-block;
+  width: 22rpx;
+  height: 20rpx;
+  border: 1px solid #eaeaea;
+  position: relative;
+}
+.roomItem .label .roomMsg .record .timeBox.active{
+  background-color: #adadad;
+}
+.roomItem .label .roomMsg .record .timeBox span{
+  position: absolute;
+  left: -10rpx;
+  bottom: -35rpx;
+}
+.roomItem .label .roomMsg .device .van-tag{
+  margin-right: 10rpx;
+  margin-top: 5rpx;
+}
+.roomItem .label .pic{
+  flex: 1;
+}
+.roomItem .label .pic image{
+  width: 160rpx;
+  /* margin-top: 50%; */
+  /* transform: translateY(-50%); */
+}
+/* #roomItem{
   width: 95%;
   height: 200rpx;
   display: flex;
-  /* flex-direction: row;
-  justify-content: space-between; */
   border-bottom: 0.5px solid #888888;
   margin: 0 auto;
   background: #fff;
@@ -109,4 +168,4 @@
 .item_right_desc {
   font-size: 27rpx;
   color: #888;
-}
+} */

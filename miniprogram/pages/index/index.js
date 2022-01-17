@@ -17,7 +17,7 @@ Page({
     device: [],
     condition: {},
     conditionStr: '更多筛选', //条件筛选会议室结果
-    rooms: {}
+    rooms: {},
   },
   onLoad() {
     this.setData({
