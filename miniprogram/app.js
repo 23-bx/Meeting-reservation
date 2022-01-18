@@ -1,6 +1,18 @@
 // app.js
 App({
   onLaunch: function () {
+    // this.login()
+    let timeMap = new Map(
+      [["09:00",0],["09:30",1],["10:00",2],["10:30",3],["11:00",4],["11:30",5],
+       ["12:00",6],["12:30",7],["13:00",8],["13:30",9],["14:00",10],["14:30",11],
+       ["15:00",12],["15:30",13],["16:00",14],["16:30",15],["17:00",16],["17:30",17],
+      ])
+    this.globalData.timeMap = timeMap
+  },
+  globalData:{
+    timeMap:null
+  },
+  login(){
     wx.qy.login({
       success: function(res) {
         console.log('调用成功！');
@@ -17,20 +29,5 @@ App({
         }
       }
     });
-    if (!wx.cloud) {
-      console.error('请使用 2.2.3 或以上的基础库以使用云能力');
-    } else {
-      wx.cloud.init({
-        env:'cloud1-2gti864359941aaa',
-        // env 参数说明：
-        //   env 参数决定接下来小程序发起的云开发调用（wx.cloud.xxx）会默认请求到哪个云环境的资源
-        //   此处请填入环境 ID, 环境 ID 可打开云控制台查看
-        //   如不填则使用默认环境（第一个创建的环境）
-        // env: 'my-env-id',
-        traceUser: true
-      });
-    }
-
-    this.globalData = {};
-  }
+  },
 });

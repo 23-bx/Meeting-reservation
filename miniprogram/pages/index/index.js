@@ -20,8 +20,12 @@ Page({
     rooms: {},
   },
   onLoad() {
+    let dateTarget = 'condition.date';
+    let date = new Date();
+    console.log(date);
     this.setData({
-      color
+      color,
+      [dateTarget]:`${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
     })
     this.getOffices();
     this.getDevices();
@@ -102,11 +106,13 @@ Page({
     return `${date.getMonth() + 1}月${date.getDate()}日`;
   },
   confirmDate(event) {
-    console.log(event.detail)
     this.selectComponent('#datePicker').toggle();
+    let dateTarget = 'condition.date'
     this.setData({
+      [dateTarget]:`${event.detail.getFullYear()}-${event.detail.getMonth() + 1}-${event.detail.getDate()}`,
       date: this.formatDate(event.detail),
     });
+    this.getRooms()
   },
   // 日历组件结束
 
@@ -116,7 +122,6 @@ Page({
       method: "GET",
       data: {},
       success: res=> {
-        console.log(res.data)
         let officeList = this.data.officeList;
         res.data.map(item => {
           officeList.push({
@@ -148,7 +153,7 @@ Page({
     let condition = this.data.condition
     console.log(this.data.condition, 'condition')
     wx.request({
-      url: url.getRoom,
+      url: url.getRoomList,
       method: "GET",
       data: condition,
       success: res=> {
@@ -158,7 +163,17 @@ Page({
             rooms:res.data
           })
         }
+      },
+      fail:err=>{
+        console.log(res)
       }
+    })
+  },
+  order(e){
+    wx.setStorageSync('roomMsg', e.currentTarget.dataset.msg)
+    wx.setStorageSync('date', this.data.condition.date)
+    wx.navigateTo({
+      url: '../order/order'
     })
   }
 });

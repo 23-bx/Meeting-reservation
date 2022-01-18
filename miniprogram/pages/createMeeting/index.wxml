@@ -1,7 +1,0 @@
-<!--pages/createMeeting/index.wxml-->
-<view>
-
-  <van-button type="default">默认按钮</van-button>
-  <text>创建会议</text>
-
-</view>

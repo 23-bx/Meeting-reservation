@@ -38,7 +38,7 @@
     </view>
   </view>
   <van-cell-group>
-    <van-cell class="roomItem" wx:for="{{rooms}}" value="" use-label-slot wx:key="_id">
+    <van-cell class="roomItem" wx:for="{{rooms}}" value="" use-label-slot wx:key="_id" bindtap="order" data-msg="{{item}}">
       <view slot="label" class="label">
         <view class="roomMsg">
           <view class="title">{{item.room_name}}</view>
