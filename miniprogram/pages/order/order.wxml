@@ -1,16 +1,23 @@
 <!--pages/order/order.wxml-->
 <view id="order">
-  <van-cell>
-    <view slot="title">
+  <van-toast id="van-toast" />
+  <van-cell id="msg">
+    <view slot="title" id="title">
+      <view class="pic">
+        <image src="../../images/tabbar/meeting-room.jpg" mode="widthFix"></image>
+      </view>
       <view class="basic">
-        <van-icon name="location-o" color="{{color.dorange}}"/>
+        <van-icon name="location-o" color="{{color.dpink}}" size="40rpx" />
         <span>{{roomMsg.office_name+'F'+roomMsg.floor}}</span>
-        <van-icon name="friends-o"  color="{{color.dpink}}"/>
+      </view>
+      <view class="basic">
+        <van-icon name="friends-o"  color="{{color.dpink}}" size="40rpx" />
         <span>{{roomMsg.chair}}</span>
       </view>
       <view class="device">
-        <van-tag plain type="primary" color="{{color.dorange}}" wx:for="{{roomMsg.device}}" wx:for-item="dName" wx:key="index">{{dName}}</van-tag>
+        <van-tag plain color="{{color.dorange}}" wx:for="{{roomMsg.device}}" wx:for-item="dName" wx:key="index">{{dName}}</van-tag>
       </view>
+      
     </view>
   </van-cell>
   <van-cell title="会议日期" value="{{ date }}" bind:click="showCalender" is-link></van-cell>
@@ -25,7 +32,6 @@
     <van-datetime-picker type="time" value="{{ endTime }}" filter="{{ filter }}" 
     min-hour="9" max-hour="18" bind:confirm="chooseEndTime"/>
   </van-popup>
-  <van-button type="primary" bindclick="order" block class="orderBtn" color="{{color.dpink}}">立即预约</van-button>
-
+  <van-button bindclick="order" block class="orderBtn" color="{{color.dpink}}">立即预约</van-button>
 </view>
 

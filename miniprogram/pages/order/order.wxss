@@ -1,7 +1,37 @@
 /* pages/order/order.wxss */
+#order{
+  background-color: #fff;
+}
+#order .pic{
+  float: right;
+}
+#order .pic image{
+  width: 300rpx;
+}
+#order .basic{
+  height: 70rpx;
+  line-height: 70rpx;
+  width: 300rpx;
+}
+#order .basic .van-icon{
+  margin-right: 10rpx;
+}
+#order .device {
+  width: 365rpx;
+}
+#order .device .van-tag{
+  margin-right: 10rpx;
+}
 .orderBtn{
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
 }
+
+/* #msg .van-cell:nth-child(1){
+  width: 90%;
+  margin: 20rpx auto;
+  background-color: rgb(255, 245, 245);
+  border-radius: 10rpx;
+} */

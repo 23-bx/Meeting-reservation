@@ -6,14 +6,14 @@
         <van-dropdown-item title="{{date}}" value="{{ date }}" id="datePicker">
           <van-calendar show-title="{{false}}" color="{{color.dpink}}" poppable="{{ false }}" show-confirm="{{ false }}" bind:select="confirmDate" class="calendar" />
         </van-dropdown-item>
-        <van-dropdown-item id="moreCondition" title="{{conditionStr}}">
+        <van-dropdown-item id="moreCondition" style="max-width: 140rpx;" title="{{conditionStr}}">
           <van-cell title="选择楼层">
-            <van-slider class="slider" value="{{ floor }}" use-button-slot bind:drag="chooseFloor" min="1" max="28" active-color="{{floorColor}}">
+            <van-slider class="slider" value="{{ floor }}" use-button-slot bind:drag="chooseFloor" bind:change="chooseFloor" min="1" max="28" active-color="{{floorColor}}">
               <view class="custom-button" slot="button" style="background-color: {{floorColor}};">{{ floor }}</view>
             </van-slider>
           </van-cell>
           <van-cell title="容纳人数">
-            <van-slider class="slider" value="{{ chair }}" use-button-slot bind:drag="choosePplNum" min="10" max="50" step="10" active-color="{{color.dpink}}">
+            <van-slider class="slider" value="{{ chair }}" use-button-slot bind:drag="choosePplNum" bind:change="choosePplNum" min="10" max="50" step="10" active-color="{{color.dpink}}">
               <view class="custom-button" slot="button">{{ chair }}</view>
             </van-slider>
           </van-cell>
@@ -33,22 +33,23 @@
         </van-dropdown-item>
       </van-dropdown-menu>
     </view>
-    <view id="roomSearch">
+    <!-- <view id="roomSearch">
       <van-search value="{{ value }}" placeholder="请输入会议室名称关键词" show-action bind:search="onSearch" bind:cancel="onCancel" />
-    </view>
+    </view> -->
   </view>
-  <van-cell-group>
+  <van-empty wx:if="{{rooms.length==0}}" image="search" description="没有找到符合条件的会议室哦~" />
+  <van-cell-group wx:else>
     <van-cell class="roomItem" wx:for="{{rooms}}" value="" use-label-slot wx:key="_id" bindtap="order" data-msg="{{item}}">
       <view slot="label" class="label">
         <view class="roomMsg">
           <view class="title">{{item.room_name}}</view>
-          <view class="position">{{item.office_name+item.floor+'层'}}</view>
-          <view class="chair"><van-icon name="friends-o" size="40rpx" />{{item.chair}}</view>
-          <view class="device">
+          <view class="position"><van-icon name="location-o"  size="30rpx" />{{item.office_name+item.floor+'层'}}</view>
+          <view class="chair"><van-icon name="friends-o" size="30rpx" />{{item.chair}}</view>
+          <view class="device" style="min-height: 40rpx;">
             <van-tag plain type="primary" color="{{color.dorange}}" wx:for="{{item.device}}" wx:for-item="dName" wx:key="index">{{dName}}</van-tag>
           </view>
           <view class="record">
-            <span class="timeBox {{recordItem==1?'active':''}}" wx:for="{{item.record}}" wx:for-item="recordItem" wx:key="index">
+            <span class="timeBox {{recordItem==1?'active':''}} {{index%2==0?'borderB':''}}" wx:for="{{item.record}}" wx:for-item="recordItem" wx:key="index">
               <span class="clock" wx:if="{{index%2==0}}">{{index*0.5+9}}</span>
             </span>
           </view>

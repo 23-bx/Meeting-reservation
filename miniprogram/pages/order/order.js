@@ -1,6 +1,8 @@
 // pages/order/order.js
 import color from '../../utils/styleConst.js'
 import url from '../../utils/url.js'
+import Toast from '../../miniprogram_npm/@vant/weapp/toast/toast';
+
 var app = getApp()
 Page({
   data: {
@@ -56,7 +58,7 @@ Page({
     this.setData({
       startTime: event.detail,
     });
-    console.log(app.globalData.timeMap.get(event.detail));
+
     this.closeStartTime();
   },
   closeStartTime(){
@@ -84,6 +86,43 @@ Page({
   },
   //预约
   order(){
-    console.log(this.data.orderMsg)
+    let orderMsg = this.data.orderMsg;
+    let sTime = app.globalData.timeMap.get(this.data.startTime);
+    let eTime = app.globalData.timeMap.get(this.data.endTime);
+    orderMsg.time = Math.pow(2,eTime) - Math.pow(2,sTime);
+    orderMsg.id = parseInt(this.data.roomMsg.room_id);
+    console.log(orderMsg)
+    if(orderMsg.time>0){
+      wx.request({
+        url: url.orderMeeting,
+        method: "POST",
+        header:{'Content-Type': 'application/x-www-form-urlencoded'},
+        data:orderMsg,
+        success:res=>{
+          console.log(res)
+          if(res.data==1){
+            Toast('预约成功啦,跳转中~');
+            setTimeout(()=>{
+              wx.switchTab({
+                url: '../index/index',
+                success(res){
+                  let page = getCurrentPages().pop();
+                  if(page == undefined || page == null){
+                        return
+                  }
+                  page.onLoad();
+            }
+              })
+            },2000)
+            
+          }else if(res.data==2){
+            Toast('该时段已被预约，请选择其他时间~');
+          }
+        }
+      })
+    }else{
+      Toast('结束时间须晚于开始时间！');
+    }
+    
   }
 })

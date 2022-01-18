@@ -1,8 +1,11 @@
 #meetingPage{
-  padding-top: 220rpx;
+  padding-top: 90rpx;
 }
 .calendar {
   --calendar-height: 500px;
+}
+.van-ellipsis{
+  max-width: 140rpx;
 }
 #selection{
   width: 100%;
@@ -91,11 +94,12 @@
   display: inline-block;
   width: 22rpx;
   height: 20rpx;
-  border: 1px solid #eaeaea;
+  border-left: 1px solid #e79796;
+  /* border-right: 1px solid #eaeaea; */
   position: relative;
 }
 .roomItem .label .roomMsg .record .timeBox.active{
-  background-color: #adadad;
+  background-color: #f5cec7;
 }
 .roomItem .label .roomMsg .record .timeBox span{
   position: absolute;
@@ -169,3 +173,6 @@
   font-size: 27rpx;
   color: #888;
 } */
+.roomItem .label .roomMsg .record .timeBox.borderB{
+  border-left: 2px rgb(255, 154, 154) solid;
+}

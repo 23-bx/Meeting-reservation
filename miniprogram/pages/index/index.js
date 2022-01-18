@@ -2,6 +2,7 @@
 // const app = getApp()
 import color from '../../utils/styleConst.js'
 import url from '../../utils/url.js'
+var app = getApp()
 Page({
   data: {
     color: {}, //配色
@@ -19,13 +20,15 @@ Page({
     conditionStr: '更多筛选', //条件筛选会议室结果
     rooms: {},
   },
-  onLoad() {
+  onLoad(e) {
     let dateTarget = 'condition.date';
     let date = new Date();
+    let dateStr = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
     console.log(date);
     this.setData({
       color,
-      [dateTarget]:`${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
+      date:dateStr,
+      [dateTarget]:dateStr
     })
     this.getOffices();
     this.getDevices();
@@ -40,16 +43,19 @@ Page({
   },
   // 条件筛选
   chooseFloor(event) { //楼层选择
+    let floor = event.detail.value||event.detail;
     let target = 'condition.floor'
     this.setData({
-      [target]: event.detail.value,
-      floor: event.detail.value,
+      [target]: floor,
+      floor,
       floorColor: this.data.color.dpink
     });
   },
   choosePplNum(event) { //人数选择
+    console.log(event);
+    let chair = event.detail.value||event.detail;
     this.setData({
-      chair: event.detail.value
+      chair
     });
   },
   getDevice(event) { //设备选择
@@ -76,6 +82,13 @@ Page({
     this.getRooms();
   },
   confirmCondition() { //筛选确定
+    let deviceFormat = [];
+    deviceFormat[2]="显示屏";
+    deviceFormat[4]="外网";
+    deviceFormat[8]="投影仪";
+    deviceFormat[16]="电视";
+    deviceFormat[32]="白板";
+    deviceFormat[64]="麦克风";
     console.log(this.data.condition)
     this.selectComponent('#moreCondition').toggle();
     let conditionArr = []
@@ -86,7 +99,9 @@ Page({
       conditionArr.push(`${this.data.chair}人`)
     }
     if (this.data.device && this.data.device.length > 0) {
-      conditionArr.push(this.data.device.join(','))
+      this.data.device.forEach(item => {
+        conditionArr.push(deviceFormat[item])
+      });
     }
     let conditionStr = conditionArr.join(',')
     const chair = 'condition.chair'
