@@ -25,12 +25,12 @@
   <van-cell title="开始时间" value="{{ startTime }}" bind:click="showStartTime" is-link></van-cell>
   <van-popup show="{{ showStartTime }}" bind:close="closeStartTime" position="bottom">
     <van-datetime-picker type="time" value="{{ startTime }}" filter="{{ filter }}" 
-    min-hour="9" max-hour="18" bind:confirm="chooseStartTime"/>
+    min-hour="9" max-hour="17" bind:confirm="chooseStartTime"/>
   </van-popup>
   <van-cell title="结束时间" value="{{ endTime }}" bind:click="showEndTime" is-link></van-cell>
   <van-popup show="{{ showEndTime }}" bind:close="closeEndTime" position="bottom">
     <van-datetime-picker type="time" value="{{ endTime }}" filter="{{ filter }}" 
-    min-hour="9" max-hour="18" bind:confirm="chooseEndTime"/>
+    min-hour="9" max-hour="17" bind:confirm="chooseEndTime"/>
   </van-popup>
   <van-button bindclick="order" block class="orderBtn" color="{{color.dpink}}">立即预约</van-button>
 </view>
