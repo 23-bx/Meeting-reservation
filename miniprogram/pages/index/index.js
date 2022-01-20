@@ -43,6 +43,9 @@ Page({
     this.getDevices();
     this.getRooms();
   },
+  onShow(){
+    this.getRooms();
+  },
   changeOffice(event) { //职场选择
     let target = 'condition.office_id'
     this.setData({
