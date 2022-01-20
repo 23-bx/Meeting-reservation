@@ -18,6 +18,13 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "预约记录",
+          "pathName": "pages/my/my",
+          "query": "",
+          "scene": null,
+          "launchMode": "default"
         }
       ]
     }

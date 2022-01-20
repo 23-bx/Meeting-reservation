@@ -1,2 +1,23 @@
 <!--pages/my/my.wxml-->
-<text>pages/my/my.wxml</text>
+<!-- <text>pages/my/my.wxml</text> -->
+<van-collapse accordion value="{{ activeName }}" bind:change="onChange">
+  <van-collapse-item wx:for="{{myRecord}}" wx:key="id" wx:for-index="index" name="{{item.index}}">
+    <view slot="title" id="collTitle">
+      <view class="tLeft">{{item.date}}</view>
+      <view class="tMid">{{item.time}}</view>
+      <view class="tRight">{{item.room_name}}</view>
+    </view>
+    <view>
+      <!-- {{item.avatar}} -->
+      {{item.chair}}
+      {{item.date}}
+      {{item.device}}
+      {{item.floor}}
+      <!-- {{item.nickname}} -->
+      {{item.office_name}}
+      {{item.room_name}}
+      {{item.status}}
+      {{item.time}}
+    </view>
+  </van-collapse-item>
+</van-collapse>

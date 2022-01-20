@@ -21,14 +21,23 @@ Page({
     rooms: {},
   },
   onLoad(e) {
-    let dateTarget = 'condition.date';
-    let date = new Date();
-    let dateStr = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
+    
+    let date,pDate,sDate;
+    if(wx.getStorageSync('date')){
+      let date = wx.getStorageSync('date');
+      pDate = date; //传给后台的数据
+      sDate = `${date.split("-")[1]}月${date.split("-")[2]}日`
+    }else{
+      let date = new Date();
+      pDate = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
+      sDate = `${date.getMonth()+1}月${date.getDate()}日`
+    }
     console.log(date);
+    let dateTarget = 'condition.date';
     this.setData({
       color,
-      date:dateStr,
-      [dateTarget]:dateStr
+      date:sDate,
+      [dateTarget]:pDate
     })
     this.getOffices();
     this.getDevices();
@@ -166,7 +175,7 @@ Page({
   },
   getRooms() { //获取会议室列表
     let condition = this.data.condition
-    console.log(this.data.condition, 'condition')
+    // console.log(this.data.condition, 'condition')
     wx.request({
       url: url.getRoomList,
       method: "GET",

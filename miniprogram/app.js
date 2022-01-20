@@ -1,5 +1,5 @@
 // app.js
-
+import url from './utils/url.js'
 App({
   onLaunch: function () {
     // this.login()
@@ -14,26 +14,12 @@ App({
     this.globalData.timeMap = timeMap
     this.globalData.deviceMap = deviceMap
   },
+  onHide:function(){
+    wx.removeStorageSync('date')
+  },
   globalData:{
     timeMap:null,
     deviceMap:null
   },
-  login(){
-    wx.qy.login({
-      success: function(res) {
-        console.log('调用成功！');
-        if (res.code) {
-          //发起网络请求
-          wx.request({
-            url: 'https://test.com/onLogin',
-            data: {
-              code: res.code
-            }
-          })
-        } else {
-          console.log('登录失败！' + res.errMsg)
-        }
-      }
-    });
-  },
+  
 });

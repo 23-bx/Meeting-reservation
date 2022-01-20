@@ -46,7 +46,7 @@ Page({
       showCal: false,
       date,
     });
-    
+    wx.setStorageSync('date', date)
   },
   //startTime
   showStartTime(){
@@ -89,6 +89,7 @@ Page({
     let orderMsg = this.data.orderMsg;
     let sTime = app.globalData.timeMap.get(this.data.startTime);
     let eTime = app.globalData.timeMap.get(this.data.endTime);
+    orderMsg.date = this.data.date;
     orderMsg.time = Math.pow(2,eTime) - Math.pow(2,sTime);
     orderMsg.id = parseInt(this.data.roomMsg.room_id);
     console.log(orderMsg)

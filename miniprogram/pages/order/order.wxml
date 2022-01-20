@@ -21,7 +21,7 @@
     </view>
   </van-cell>
   <van-cell title="会议日期" value="{{ date }}" bind:click="showCalender" is-link></van-cell>
-  <van-calendar show="{{ showCal }}" color="{{color.dpink}}" bind:close="closeCalender" bind:confirm="confirmDate" />
+  <van-calendar show="{{ showCal }}" color="{{color.dpink}}" bind:close="closeCalender" bind:select="confirmDate" />
   <van-cell title="开始时间" value="{{ startTime }}" bind:click="showStartTime" is-link></van-cell>
   <van-popup show="{{ showStartTime }}" bind:close="closeStartTime" position="bottom">
     <van-datetime-picker type="time" value="{{ startTime }}" filter="{{ filter }}" 
