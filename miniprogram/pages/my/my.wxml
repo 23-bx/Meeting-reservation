@@ -1,23 +1,50 @@
 <!--pages/my/my.wxml-->
 <!-- <text>pages/my/my.wxml</text> -->
-<van-collapse accordion value="{{ activeName }}" bind:change="onChange">
+<van-empty style="margin-top: 200rpx;" wx:if="{{myRecord.length==0}}" description="还没有预约记录~" />
+<van-collapse wx:else accordion value="{{ activeName }}" bind:change="onChange">
   <van-collapse-item wx:for="{{myRecord}}" wx:key="id" wx:for-index="index" name="{{item.index}}">
     <view slot="title" id="collTitle">
       <view class="tLeft">{{item.date}}</view>
       <view class="tMid">{{item.time}}</view>
-      <view class="tRight">{{item.room_name}}</view>
+      <view class="tRight">
+        {{item.room_name}}
+        <span class="position">
+          [{{item.office_name+item.floor+'F'}}]
+        </span>
+      </view>
     </view>
-    <view>
-      <!-- {{item.avatar}} -->
-      {{item.chair}}
-      {{item.date}}
-      {{item.device}}
-      {{item.floor}}
-      <!-- {{item.nickname}} -->
-      {{item.office_name}}
-      {{item.room_name}}
-      {{item.status}}
-      {{item.time}}
+    <view id="detail">
+      <view class="chair">
+        <image src="../../images/my/ppl.png" mode="widthFix" class="listPic"/>
+        {{item.chair}}
+      </view>
+      <view class="device" wx:if="{{item.device.length>0}}">
+        <image src="../../images/my/device.png" mode="widthFix" class="listPic"/>
+        {{item.device}}
+      </view>
+    </view>
+    <view class="cancel" bindtap="cancelOrder" data-id="{{item.id}}">
+        取消预约
     </view>
   </van-collapse-item>
 </van-collapse>
+<van-toast id="van-toast" />
+<!-- <wxs module="m1">
+  var timeFormat = function(map,timeCount){
+    var bin = timeCount.toString(2);
+    var first = bin.indexOf("1");
+    var last = bin.lastIndexOf("1") + 1;
+    console.log(11)
+    return getMapKey(map,first)+'-'+getMapKey(map,last);
+  }
+  var getMapKey = function(map,value){
+    var key = ''
+    map.forEach(function(v,k){
+      if ( v == value) {
+        key = k
+      }
+    })
+    return key
+  }
+  module.exports.timeFormat = timeFormat
+</wxs> -->

@@ -12,12 +12,20 @@ Page({
       }
       return options;
     },
-    orderMsg:{}
+    orderMsg:{},
+    userName:'',
+    userId:''
   },
   onLoad: function (options) {
     let roomMsg = wx.getStorageSync('roomMsg')
     let date = wx.getStorageSync('date')
     let dateTarget = 'orderMsg.date'
+    if(wx.getStorageSync('userName')&&wx.getStorageSync('userId')){
+      this.setData({
+        userName:wx.getStorageSync('userName'),
+        userId:wx.getStorageSync('userId')
+      })
+    }
     this.setData({
       color,
       roomMsg,
@@ -85,10 +93,26 @@ Page({
     })
   },
   //预约
+  getUserName(event){
+    console.log(event.detail)
+    this.setData({
+      userName:event.detail
+    })
+  },
+  getUserId(event){
+    console.log(event.detail)
+    this.setData({
+      userId:event.detail
+    })
+  },
   order(){
     let orderMsg = this.data.orderMsg;
     let sTime = app.globalData.timeMap.get(this.data.startTime);
     let eTime = app.globalData.timeMap.get(this.data.endTime);
+    wx.setStorageSync('userId', this.data.userId)
+    wx.setStorageSync('userName', this.data.userName)
+    orderMsg.nickName = this.data.userName;
+    orderMsg.userId = this.data.userId;
     orderMsg.date = this.data.date;
     orderMsg.time = Math.pow(2,eTime) - Math.pow(2,sTime);
     orderMsg.id = parseInt(this.data.roomMsg.room_id);

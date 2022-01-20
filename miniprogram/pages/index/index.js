@@ -164,7 +164,7 @@ Page({
       url: url.getDevice,
       method: "GET",
       success: res=> {
-        console.log(res.data,'device-res')
+        // console.log(res.data,'device-res')
         if(Array.isArray(res.data)){
           this.setData({
             deviceList:res.data
@@ -181,7 +181,7 @@ Page({
       method: "GET",
       data: condition,
       success: res=> {
-        console.log(res.data,'res')
+        // console.log(res.data,'res')
         if(Array.isArray(res.data)){
           this.setData({
             rooms:res.data

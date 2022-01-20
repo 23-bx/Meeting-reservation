@@ -14,7 +14,6 @@ Page({
     wx.qy.login({
       success: function(res) {
         console.log('调用成功！',res.code);
-        wx.setStorageSync('userId', "21372")
         wx.switchTab({
           url: '../index/index',
         })
@@ -29,10 +28,6 @@ Page({
             },
             success:res=>{
               console.log(res)
-              this.setData({
-                userId:"21372"
-              })
-              
             }
           })
         } else {

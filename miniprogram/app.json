@@ -49,7 +49,8 @@
     "van-datetime-picker": "@vant/weapp/datetime-picker/index",
     "van-toast": "@vant/weapp/toast/index",
     "van-empty": "@vant/weapp/empty/index",
-    "van-swipe-cell": "@vant/weapp/swipe-cell/index"
+    "van-swipe-cell": "@vant/weapp/swipe-cell/index",
+    "van-field": "@vant/weapp/field/index"
   },
   "sitemapLocation": "sitemap.json"
 }

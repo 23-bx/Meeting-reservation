@@ -8,7 +8,7 @@
       </view>
       <view class="basic">
         <van-icon name="location-o" color="{{color.dpink}}" size="40rpx" />
-        <span>{{roomMsg.office_name+'F'+roomMsg.floor}}</span>
+        <span>{{roomMsg.office_name+roomMsg.floor+'F'}}</span>
       </view>
       <view class="basic">
         <van-icon name="friends-o"  color="{{color.dpink}}" size="40rpx" />
@@ -32,6 +32,8 @@
     <van-datetime-picker type="time" value="{{ endTime }}" filter="{{ filter }}" 
     min-hour="9" max-hour="17" bind:confirm="chooseEndTime"/>
   </van-popup>
+  <van-field value="{{ userName }}" label="姓名" placeholder="请输入用户名" bind:change="getUserName"/>
+  <van-field value="{{ userId }}" type="number" label="工号" placeholder="请输入工号" bind:change="getUserId"/>
   <van-button bindclick="order" block class="orderBtn" color="{{color.dpink}}">立即预约</van-button>
 </view>
 
