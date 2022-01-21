@@ -181,7 +181,7 @@ Page({
       method: "GET",
       data: condition,
       success: res=> {
-        // console.log(res.data,'res')
+        console.log(res.data,'res')
         if(Array.isArray(res.data)){
           this.setData({
             rooms:res.data
