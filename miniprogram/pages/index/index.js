@@ -7,10 +7,7 @@ Page({
   data: {
     color: {}, //配色
     date: '选择日期', //calendar
-    officeList: [{ //职场列表
-      text: '全部职场',
-      value: 0
-    }, ],
+    officeList: [],
     office: 0, //初始显示全部职场
     floor: 1,
     floorColor: '#eeeeee',
@@ -19,9 +16,9 @@ Page({
     condition: {},
     conditionStr: '更多筛选', //条件筛选会议室结果
     rooms: {},
+    deviceCount:0
   },
   onLoad(e) {
-    
     let date,pDate,sDate;
     if(wx.getStorageSync('date')){
       let date = wx.getStorageSync('date');
@@ -31,8 +28,9 @@ Page({
       let date = new Date();
       pDate = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
       sDate = `${date.getMonth()+1}月${date.getDate()}日`
+      wx.setStorageSync('date', pDate)
     }
-    console.log(date);
+    console.log(sDate);
     let dateTarget = 'condition.date';
     this.setData({
       color,
@@ -64,7 +62,6 @@ Page({
     });
   },
   choosePplNum(event) { //人数选择
-    console.log(event);
     let chair = event.detail.value||event.detail;
     this.setData({
       chair
@@ -78,14 +75,19 @@ Page({
     });
   },
   resetCondition() { //重置筛选
+    console.log('重置')
     this.selectComponent('#moreCondition').toggle();
     let conditionStr = '更多筛选'
-    let office_id = 'condition.office_id'
-    let temp = this.data.condition.office_id
+    if(this.data.condition.office_id){
+      let temp = this.data.condition.office_id
+      let office_id = 'condition.office_id'
+      this.setData({
+        [office_id]: temp
+      })
+    }
     this.setData({
       conditionStr,
       condition: {},
-      [office_id]: temp,
       floor: 1,
       floorColor: '#eee',
       chair: 10,
@@ -149,7 +151,7 @@ Page({
       method: "GET",
       data: {},
       success: res=> {
-        let officeList = this.data.officeList;
+        let officeList = [{text: '全部职场',value: 0}, ];
         res.data.map(item => {
           officeList.push({
             text: item.office_name,
@@ -177,6 +179,7 @@ Page({
     })
   },
   getRooms() { //获取会议室列表
+    console.log('获取会议室列表')
     let condition = this.data.condition
     // console.log(this.data.condition, 'condition')
     wx.request({
@@ -184,7 +187,7 @@ Page({
       method: "GET",
       data: condition,
       success: res=> {
-        // console.log(res.data,'res')
+        console.log(res.data,'res')
         if(Array.isArray(res.data)){
           this.setData({
             rooms:res.data
