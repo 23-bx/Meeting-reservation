@@ -97,11 +97,11 @@ Page({
   },
   confirmCondition() { //筛选确定
     let deviceFormat = [];
-    deviceFormat[2]="显示屏";
-    deviceFormat[4]="外网";
-    deviceFormat[8]="投影仪";
-    deviceFormat[16]="电视";
-    deviceFormat[32]="白板";
+    deviceFormat[2]="办公网";
+    deviceFormat[4]="开发网";
+    deviceFormat[8]="显示器";
+    deviceFormat[16]="白板";
+    deviceFormat[32]="HDMI";
     deviceFormat[64]="麦克风";
     console.log(this.data.condition)
     this.selectComponent('#moreCondition').toggle();

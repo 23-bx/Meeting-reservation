@@ -20,7 +20,7 @@
       </view>
       <view class="device" wx:if="{{item.device.length>0}}">
         <image src="../../images/my/device.png" mode="widthFix" class="listPic"/>
-        {{item.device}}
+        <span style="display:inline-block;width:380rpx;">{{item.device}}</span>
       </view>
     </view>
     <view class="cancel" bindtap="cancelOrder" data-id="{{item.id}}">

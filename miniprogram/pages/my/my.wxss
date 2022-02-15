@@ -39,7 +39,9 @@
   font-size: 30rpx;
 }
 .device{
-  flex:2;
+  display: flex;
+  align-items: center;
+  flex:2.5;
   font-size: 25rpx;
 }
 .cancel{
