@@ -18,7 +18,6 @@ Page({
   },
   onLoad: function (options) {
     let roomMsg = wx.getStorageSync('roomMsg')
-    console.log(roomMsg.record)
     this.setData({
       record : roomMsg.record.split("")
     })
@@ -67,7 +66,7 @@ Page({
     let recordValue = this.data.record[index];
     let target = `record[${index}]`
     if(this.data.record[index]==='1'){
-      Toast('该时间已经被预约啦！');
+      Toast('这个时间已经被预约啦！');
     }else if(newTimeLine[index]=='1'){
       newTimeLine[index] = '0'
       recordValue = '0'
@@ -80,40 +79,40 @@ Page({
       [target]:recordValue
     })
   },
-  //startTime
-  showStartTime(){
-    this.setData({
-      showStartTime:true
-    })
-  },
-  chooseStartTime(event) {
-    this.setData({
-      startTime: event.detail,
-    });
-    this.closeStartTime();
-  },
-  closeStartTime(){
-    this.setData({
-      showStartTime:false
-    })
-  },
+  // //startTime
+  // showStartTime(){
+  //   this.setData({
+  //     showStartTime:true
+  //   })
+  // },
+  // chooseStartTime(event) {
+  //   this.setData({
+  //     startTime: event.detail,
+  //   });
+  //   this.closeStartTime();
+  // },
+  // closeStartTime(){
+  //   this.setData({
+  //     showStartTime:false
+  //   })
+  // },
   //endTime
-  showEndTime(){
-    this.setData({
-      showEndTime:true
-    })
-  },
-  chooseEndTime(event) {
-    this.setData({
-      endTime: event.detail,
-    });
-    this.closeEndTime()
-  },
-  closeEndTime(){
-    this.setData({
-      showEndTime:false
-    })
-  },
+  // showEndTime(){
+  //   this.setData({
+  //     showEndTime:true
+  //   })
+  // },
+  // chooseEndTime(event) {
+  //   this.setData({
+  //     endTime: event.detail,
+  //   });
+  //   this.closeEndTime()
+  // },
+  // closeEndTime(){
+  //   this.setData({
+  //     showEndTime:false
+  //   })
+  // },
   //预约
   getUserName(event){
     this.setData({
@@ -132,7 +131,6 @@ Page({
     // let eTime = app.globalData.timeMap.get(this.data.endTime);
     wx.setStorageSync('userId', this.data.userId)
     wx.setStorageSync('userName', this.data.userName)
-    console.log(this.checkArr(newTimeLine))
     if(!this.checkArr(newTimeLine)){
       Toast('只能选择连续的时间段哦！');
       return false
@@ -141,24 +139,20 @@ Page({
     orderMsg.userId = this.data.userId;
     orderMsg.date = this.data.date;
     orderMsg.id = parseInt(this.data.roomMsg.room_id);
-    if(newTimeLine){
+    if(newTimeLine.length>0){
       let timeCount = 0
-      console.log(newTimeLine)
       for(let i=0;i<newTimeLine.length;i++){
         if(newTimeLine[i]=='1'){
-          console.log(newTimeLine.length-i)
           timeCount+=Math.pow(2,i)
         }
       }
       orderMsg.time = timeCount;
-      console.log(timeCount)
       wx.request({
         url: url.orderMeeting,
         method: "POST",
         header:{'Content-Type': 'application/x-www-form-urlencoded'},
         data:orderMsg,
         success:res=>{
-          console.log(res)
           if(res.data==1){
             Toast('预约成功啦,跳转中~');
             wx.setStorageSync('changeDate', 1)
