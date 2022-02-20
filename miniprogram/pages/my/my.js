@@ -4,7 +4,7 @@ import Toast from '../../miniprogram_npm/@vant/weapp/toast/toast';
 var app = getApp();
 Page({
   data: {
-    activeName: '1'
+    activeName: '0'
   },
   onLoad: function (options) {
     wx.setNavigationBarTitle({
@@ -67,6 +67,9 @@ Page({
         if(res.data==1){
           Toast('预约已取消~');
           this.getMyRecord();
+          this.setData({
+            activeName:'0';
+          })
         }else{
           Toast('取消失败TAT');
         }

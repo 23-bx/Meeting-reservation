@@ -19,18 +19,11 @@ Page({
     deviceCount:0
   },
   onLoad(e) {
-    let date,pDate,sDate;
-    if(wx.getStorageSync('date')){
-      let date = wx.getStorageSync('date');
-      pDate = date; //传给后台的数据
-      sDate = `${date.split("-")[1]}月${date.split("-")[2]}日`
-    }else{
-      let date = new Date();
-      pDate = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
-      sDate = `${date.getMonth()+1}月${date.getDate()}日`
-      wx.setStorageSync('date', pDate)
-    }
-    console.log(sDate);
+    let pDate,sDate;
+    let date = new Date();
+    pDate = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
+    sDate = `${date.getMonth()+1}月${date.getDate()}日`
+    wx.setStorageSync('date', pDate)
     let dateTarget = 'condition.date';
     this.setData({
       color,
@@ -103,7 +96,6 @@ Page({
     deviceFormat[16]="白板";
     deviceFormat[32]="HDMI";
     deviceFormat[64]="麦克风";
-    console.log(this.data.condition)
     this.selectComponent('#moreCondition').toggle();
     let conditionArr = []
     if (this.data.condition.floor) {
@@ -179,15 +171,12 @@ Page({
     })
   },
   getRooms() { //获取会议室列表
-    console.log('获取会议室列表')
     let condition = this.data.condition
-    // console.log(this.data.condition, 'condition')
     wx.request({
       url: url.getRoomList,
       method: "GET",
       data: condition,
       success: res=> {
-        console.log(res.data,'res')
         if(Array.isArray(res.data)){
           this.setData({
             rooms:res.data

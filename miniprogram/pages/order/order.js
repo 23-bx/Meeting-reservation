@@ -94,13 +94,11 @@ Page({
   },
   //预约
   getUserName(event){
-    console.log(event.detail)
     this.setData({
       userName:event.detail
     })
   },
   getUserId(event){
-    console.log(event.detail)
     this.setData({
       userId:event.detail
     })
@@ -136,10 +134,9 @@ Page({
                         return
                   }
                   page.onLoad();
-            }
+                }
               })
-            },2000)
-            
+            },1000)
           }else if(res.data==2){
             Toast('该时段已被预约，请选择其他时间~');
           }
