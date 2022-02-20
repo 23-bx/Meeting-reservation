@@ -19,11 +19,21 @@ Page({
     deviceCount:0
   },
   onLoad(e) {
+    
+  },
+  onShow(){
     let pDate,sDate;
-    let date = new Date();
-    pDate = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
-    sDate = `${date.getMonth()+1}月${date.getDate()}日`
-    wx.setStorageSync('date', pDate)
+    if(wx.getStorageSync('date') && wx.getStorageSync('changeDate') === 1){
+      let date = wx.getStorageSync('date');
+      pDate = date; //传给后台的数据
+      sDate = `${date.split("-")[1]}月${date.split("-")[2]}日`
+      wx.setStorageSync('changeDate', 0)
+    }else{
+      let date = new Date();
+      pDate = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
+      sDate = `${date.getMonth()+1}月${date.getDate()}日`
+      wx.setStorageSync('date', pDate)
+    }
     let dateTarget = 'condition.date';
     this.setData({
       color,
@@ -32,9 +42,6 @@ Page({
     })
     this.getOffices();
     this.getDevices();
-    this.getRooms();
-  },
-  onShow(){
     this.getRooms();
   },
   changeOffice(event) { //职场选择
@@ -68,7 +75,6 @@ Page({
     });
   },
   resetCondition() { //重置筛选
-    console.log('重置')
     this.selectComponent('#moreCondition').toggle();
     let conditionStr = '更多筛选'
     if(this.data.condition.office_id){
@@ -161,7 +167,6 @@ Page({
       url: url.getDevice,
       method: "GET",
       success: res=> {
-        // console.log(res.data,'device-res')
         if(Array.isArray(res.data)){
           this.setData({
             deviceList:res.data

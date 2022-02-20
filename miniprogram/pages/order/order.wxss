@@ -28,7 +28,36 @@
   left: 0;
   right: 0;
 }
-
+.record{
+  margin-top: 20rpx;
+  height: 100rpx;
+  color:#969799;
+  font-size: 24rpx;
+  text-align: center;
+}
+.record .timeBox{
+  display: inline-block;
+  width: 35rpx;
+  height: 35rpx;
+  border-left: 1px solid #e79796;
+  /* border-right: 1px solid #eaeaea; */
+  position: relative;
+}
+.record .timeBox.active{
+  background-color: #f5cec7;
+}
+.record .timeBox.choosed,.record .timeBox.borderB.choosed{
+  background-color: #bfb8da;
+  border-color: #8e78e0;
+}
+.record .timeBox span{
+  position: absolute;
+  left: -10rpx;
+  bottom: -35rpx;
+}
+.record .timeBox.borderB{
+  border-left: 2px rgb(255, 154, 154) solid;
+}
 /* #msg .van-cell:nth-child(1){
   width: 90%;
   margin: 20rpx auto;

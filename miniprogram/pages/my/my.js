@@ -23,7 +23,6 @@ Page({
         userId: wx.getStorageSync('userId')
       },
       success: res => {
-        console.log(res)
         res.data.forEach(item=>{
           item.date = item.date.slice(5)
           item.time = this.timeFormat(item.time)
@@ -63,7 +62,6 @@ Page({
         id:event.currentTarget.dataset.id
       },
       success:res=>{
-        console.log(res)
         if(res.data==1){
           Toast('预约已取消~');
           this.getMyRecord();
