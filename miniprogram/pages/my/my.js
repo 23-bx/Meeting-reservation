@@ -68,7 +68,7 @@ Page({
           Toast('预约已取消~');
           this.getMyRecord();
           this.setData({
-            activeName:'0';
+            activeName:'0'
           })
         }else{
           Toast('取消失败TAT');
