@@ -2,6 +2,7 @@ const url = {}
 url.baseUrl = 'https://www.palover.online/mini_meeting'
 url.getOffice = url.baseUrl + '/getOffice.php'
 url.getRoomList = url.baseUrl + '/getRoom.php'
+url.getRoomListSplit = url.baseUrl + '/getRoomSplit.php'
 url.getDevice = url.baseUrl + '/getDevice.php'
 url.orderMeeting = url.baseUrl + '/orderMeeting.php'
 url.login = url.baseUrl + '/login.php'

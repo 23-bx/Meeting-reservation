@@ -14,14 +14,14 @@ Page({
     },
     orderMsg:{},
     userName:'',
-    userId:''
+    userId:'',
+    orderTarget:[]
   },
   onLoad: function (options) {
+    let roomId = wx.getStorageSync('roomMsg')['room_id']
     let roomMsg = wx.getStorageSync('roomMsg')
-    this.setData({
-      record : roomMsg.record.split("")
-    })
     let date = wx.getStorageSync('date')
+    this.getRooms(roomId,date)
     let dateTarget = 'orderMsg.date'
     if(wx.getStorageSync('userName')&&wx.getStorageSync('userId')){
       this.setData({
@@ -30,6 +30,7 @@ Page({
       })
     }
     this.setData({
+      roomId,
       color,
       roomMsg,
       date,
@@ -40,6 +41,42 @@ Page({
     wx.setNavigationBarTitle({
       title: roomMsg.room_name
     })
+  },
+  getRooms(id,date) { //获取会议室列表
+    let condition = {date,id}
+    wx.request({
+      url: url.getRoomListSplit,
+      method: "GET",
+      data: condition,
+      success: res=> {
+        if(res.data.rtnCode === '000000'){
+          let recordArr = []
+          res.data.data.forEach(item=>{
+            let str = this.formatRecord(item.record)
+            recordArr[17] = recordArr[17]||{status:0}
+            let pos = str.indexOf('1')
+            while(pos > -1){
+              recordArr[pos] = {status:1,name:item.nickname}
+              pos = str.indexOf('1',pos+1)
+            }
+            this.setData({
+              recordArr
+            })
+          })
+        }
+      },
+      fail:err=>{
+        console.log(res)
+      }
+    })
+  },
+  formatRecord(record){
+    record = Number(record).toString(2)
+    while(record.length<18){
+      record = '0' + record
+    }
+    record = record.split('').reverse().join('')
+    return record
   },
   // calendar
   showCalender() {
@@ -62,21 +99,21 @@ Page({
   },
   chooseTime(e){
     let index = e.currentTarget.dataset.index;
-    let newTimeLine = this.data.newTimeLine;
-    let recordValue = this.data.record[index];
-    let target = `record[${index}]`
-    if(this.data.record[index]==='1'){
-      Toast('这个时间已经被预约啦！');
-    }else if(newTimeLine[index]=='1'){
-      newTimeLine[index] = '0'
-      recordValue = '0'
+    let orderTarget = this.data.orderTarget
+    let recordValue = this.data.recordArr[index]; //此时间段的记录
+    let target = `recordArr[${index}]`
+    if(recordValue && recordValue.status === 1){
+      Toast('这个时间已经被'+recordValue.name+'预约啦！');
+    }else if(recordValue && recordValue.status === 2){
+      orderTarget[index] = 0
+      recordValue = {status:0,name:''}
     }else{
-      newTimeLine[index] = '1'
-      recordValue = '2'
+      orderTarget[index] = 1
+      recordValue = {status:2,name:''}
     }
     this.setData({
-      newTimeLine,
-      [target]:recordValue
+      [target]:recordValue,
+      orderTarget
     })
   },
   // //startTime
@@ -126,25 +163,37 @@ Page({
   },
   order(){
     let orderMsg = this.data.orderMsg;
-    let newTimeLine = this.data.newTimeLine;
-    // let sTime = app.globalData.timeMap.get(this.data.startTime);
-    // let eTime = app.globalData.timeMap.get(this.data.endTime);
+    let orderTarget = this.data.orderTarget
+    let start,end
     wx.setStorageSync('userId', this.data.userId)
     wx.setStorageSync('userName', this.data.userName)
-    if(!this.checkArr(newTimeLine)){
+    let checkResult = this.checkArr(orderTarget)
+    if(checkResult===1){
+      Toast('还没有选择时间哦！');
+      return false
+    }else if(checkResult===2){
       Toast('只能选择连续的时间段哦！');
+      return false
+    }else{
+      start = checkResult.start
+      end = checkResult.end
+    }
+    if(!this.data.userName){
+      Toast('请填写姓名！')
+      return false
+    }
+    if(!this.data.userId){
+      Toast('请填写工号！')
       return false
     }
     orderMsg.nickName = this.data.userName;
     orderMsg.userId = this.data.userId;
     orderMsg.date = this.data.date;
     orderMsg.id = parseInt(this.data.roomMsg.room_id);
-    if(newTimeLine.length>0){
+    if(start < end || start == end){
       let timeCount = 0
-      for(let i=0;i<newTimeLine.length;i++){
-        if(newTimeLine[i]=='1'){
+      for(let i = start;i <= end;i++){
           timeCount+=Math.pow(2,i)
-        }
       }
       orderMsg.time = timeCount;
       wx.request({
@@ -178,13 +227,14 @@ Page({
     }
   },
   checkArr(arr){
-    let first = arr.indexOf('1');
-    let last = arr.lastIndexOf('1');
+    let first = arr.indexOf(1);
+    if(first==-1) return 1
+    let last = arr.lastIndexOf(1);
     for(let i=first;i<last;i++){
       if(!arr[i]){
-        return false
+        return 2
       }
     }
-    return true
+    return {start:first,end:last}
   }
 })
