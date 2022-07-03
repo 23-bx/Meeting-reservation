@@ -74,5 +74,12 @@ Page({
         }
       }
     })
+  },
+  onShareAppMessage:function(){
+    return{
+      title:'卡中心会议预定',
+      path:'/pages/index/index',
+      imageUrl:'/images/index/share.png',
+    }
   }
 })

@@ -5,8 +5,7 @@
     "pages/my/my",
     "components/CardView/CardView",
     "pages/order/order",
-    "pages/login/login",
-    "pages/aaaa"
+    "pages/login/login"
   ],
   "tabBar": {
     "selectedColor": "#e79796",
