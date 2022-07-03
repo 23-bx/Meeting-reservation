@@ -23,6 +23,7 @@ Page({
         userId: wx.getStorageSync('userId')
       },
       success: res => {
+        console.log(res)
         res.data.forEach(item=>{
           item.date = item.date.slice(5)
           item.time = this.timeFormat(item.time)

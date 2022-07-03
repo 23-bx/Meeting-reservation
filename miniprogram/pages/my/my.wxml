@@ -4,6 +4,7 @@
 <van-collapse wx:else accordion value="{{ activeName }}" bind:change="onChange">
   <van-collapse-item wx:for="{{myRecord}}" wx:key="index" wx:for-index="index" name="{{item.index}}">
     <view slot="title" id="collTitle">
+      <view class="theme">{{item.theme}}</view>
       <view class="tLeft">{{item.date}}</view>
       <view class="tMid">{{item.time}}</view>
       <view class="tRight">

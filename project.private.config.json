@@ -37,8 +37,8 @@
           "name": "预约后跳回",
           "pathName": "pages/index/index",
           "query": "date=2022-2-22",
-          "scene": null,
-          "launchMode": "default"
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

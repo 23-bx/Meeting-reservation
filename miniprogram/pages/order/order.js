@@ -15,7 +15,8 @@ Page({
     orderMsg:{},
     userName:'',
     userId:'',
-    orderTarget:[]
+    orderTarget:[],
+    btnClicked:false
   },
   onLoad: function (options) {
     let roomId = wx.getStorageSync('roomMsg')['room_id']
@@ -43,20 +44,25 @@ Page({
     })
   },
   getRooms(id,date) { //获取会议室列表
+    this.setData({
+      orderTarget:[]
+    })
     let condition = {date,id}
     wx.request({
       url: url.getRoomListSplit,
       method: "GET",
       data: condition,
       success: res=> {
+        // console.log(res.data.data)
         if(res.data.rtnCode === '000000'){
+          // console.log(res.data)
           let recordArr = []
           res.data.data.forEach(item=>{
             let str = this.formatRecord(item.record)
             recordArr[17] = recordArr[17]||{status:0}
             let pos = str.indexOf('1')
             while(pos > -1){
-              recordArr[pos] = {status:1,name:item.nickname}
+              recordArr[pos] = {status:1,name:item.nickname,theme:item.theme}
               pos = str.indexOf('1',pos+1)
             }
             this.setData({
@@ -95,6 +101,7 @@ Page({
       showCal: false,
       date,
     });
+    this.getRooms(this.data.roomId,date)
     wx.setStorageSync('date', date)
   },
   chooseTime(e){
@@ -103,7 +110,7 @@ Page({
     let recordValue = this.data.recordArr[index]; //此时间段的记录
     let target = `recordArr[${index}]`
     if(recordValue && recordValue.status === 1){
-      Toast('这个时间已经被'+recordValue.name+'预约啦！');
+      Toast(recordValue.name + ' - ' + recordValue.theme);
     }else if(recordValue && recordValue.status === 2){
       orderTarget[index] = 0
       recordValue = {status:0,name:''}
@@ -161,6 +168,11 @@ Page({
       userId:event.detail
     })
   },
+  getTheme(event){
+    this.setData({
+      theme:event.detail
+    })
+  },
   order(){
     let orderMsg = this.data.orderMsg;
     let orderTarget = this.data.orderTarget
@@ -186,8 +198,16 @@ Page({
       Toast('请填写工号！')
       return false
     }
+    if(!this.data.theme){
+      Toast('请填写会议主题！')
+      return false
+    }
+    this.setData({
+      btnClicked:true
+    })
     orderMsg.nickName = this.data.userName;
     orderMsg.userId = this.data.userId;
+    orderMsg.theme = this.data.theme;
     orderMsg.date = this.data.date;
     orderMsg.id = parseInt(this.data.roomMsg.room_id);
     if(start < end || start == end){

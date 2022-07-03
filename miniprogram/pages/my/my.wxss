@@ -1,7 +1,15 @@
 /* pages/my/my.wxss */
+#collTitle .theme{
+  font-size: 30rpx;
+  height: 70rpx;
+}
 #collTitle .tLeft,.tMid,.tRight{
   display: inline-block;
   width: 200rpx;
+}
+#collTitle .tRight{
+  font-size: 25rpx;
+  width: 250rpx;
 }
 #collTitle .tLeft{
   width: 90rpx;
