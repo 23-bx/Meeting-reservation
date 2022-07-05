@@ -39,7 +39,7 @@
   </view>
   <van-empty wx:if="{{rooms.length==0}}" image="search" description="没有找到符合条件的会议室哦~" />
   <van-cell-group wx:else>
-    <van-cell class="roomItem" wx:for="{{rooms}}" value="" use-label-slot wx:key="room_id" bindtap="order" data-msg="{{item}}">
+    <van-cell class="roomItem" wx:for="{{rooms}}" wx:if="{{item.room_id!=2||(item.room_id==2&&showYanka)}}" value="" use-label-slot wx:key="room_id" bindtap="order" data-msg="{{item}}">
       <view slot="label" class="label">
         <view class="roomMsg">
           <view class="title">{{item.room_name}}</view>

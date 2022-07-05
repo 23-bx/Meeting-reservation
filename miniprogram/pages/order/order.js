@@ -48,6 +48,7 @@ Page({
       orderTarget:[]
     })
     let condition = {date,id}
+    // console.log(condition)
     wx.request({
       url: url.getRoomListSplit,
       method: "GET",

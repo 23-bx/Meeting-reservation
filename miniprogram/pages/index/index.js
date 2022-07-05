@@ -16,10 +16,16 @@ Page({
     condition: {},
     conditionStr: '更多筛选', //条件筛选会议室结果
     rooms: {},
-    deviceCount:0
+    deviceCount:0,
+    showYanka:false
   },
   onLoad(e) {
-    
+    console.log(e)
+    if(e.type === 'wy'){
+      this.setData({
+        showYanka:true
+      })
+    }
   },
   onShow(){
     let pDate,sDate;
