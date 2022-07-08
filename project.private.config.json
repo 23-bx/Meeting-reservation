@@ -16,29 +16,43 @@
           "name": "预约会议",
           "pathName": "pages/order/order",
           "query": "",
-          "launchMode": "default",
           "scene": null
         },
         {
           "name": "预约记录",
           "pathName": "pages/my/my",
           "query": "",
-          "launchMode": "default",
           "scene": null
         },
         {
           "name": "登录",
           "pathName": "pages/login/login",
           "query": "",
-          "launchMode": "default",
           "scene": null
         },
         {
           "name": "预约后跳回",
           "pathName": "pages/index/index",
           "query": "date=2022-2-22",
-          "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "pages/index/index",
+          "pathName": "pages/index/index",
+          "query": "",
+          "scene": 1001
+        },
+        {
+          "name": "搜索进主页",
+          "pathName": "pages/index/index",
+          "query": "",
+          "scene": 1005
+        },
+        {
+          "name": "分享",
+          "pathName": "pages/index/index",
+          "query": "",
+          "scene": 1007
         }
       ]
     }

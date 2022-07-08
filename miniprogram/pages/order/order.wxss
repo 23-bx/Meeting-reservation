@@ -52,7 +52,8 @@
   background-color: #f5cec7;
 }
 .record .timeBox.choosed,.record .timeBox.borderB.choosed{
-  background-color: #bfb8da;
+  /* background-color: #bfb8da; */
+  background-color: #ffeb3b;
   border-color: #8e78e0;
 }
 .record .timeBox span{
