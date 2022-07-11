@@ -35,13 +35,13 @@
   <van-cell title="点击时间轴 - 选择预约时间段" border="{{ false }}" >
   </van-cell>
   <view class="record">
-    <span class="timeBox {{recordItem.status==1?'active':''}} {{index%2==0?'borderB':''}} {{recordItem.status==2?'choosed':''}}" wx:for="{{recordArr}}" wx:for-item="recordItem" wx:key="index" bindtap="chooseTime" data-index="{{index}}">
+    <span class="timeBox {{recordItem.status==1?'active':''}} {{index%2==0?'borderB':''}} {{recordItem.status==2?'choosed':''}}" wx:for="{{recordArr}}" wx:for-item="recordItem" style="background-color:{{recordItem.color}};" wx:key="index" bindtap="chooseTime" data-index="{{index}}">
     <!-- <span class="timeBox {{recordItem==1?'active':''}} {{index%2==0?'borderB':''}} {{recordItem==2?'choosed':''}}" wx:for="{{record}}" wx:for-item="recordItem" wx:key="index" bindtap="chooseTime" data-index="{{index}}"> -->
       <span class="clock" wx:if="{{index%2==0}}">{{index*0.5+9}}</span>
     </span>
   </view>
-  <van-field value="{{ userName }}" label="姓名" placeholder="请输入用户名" bind:change="getUserName" maxlength='4'/>
-  <van-field value="{{ userId }}" type="number" label="工号" placeholder="请输入工号" bind:change="getUserId" maxlength='5'/>
+  <van-field value="{{ userName }}" label="姓名" placeholder="请输入用户名" bind:change="getUserName"/>
+  <van-field value="{{ userId }}" type="number" label="座机" placeholder="请输入座机后四位" bind:change="getUserId" maxlength='4'/>
   <van-field value="{{ theme }}" type="text" label="主题" placeholder="请输入会议主题" bind:change="getTheme" maxlength='10' show-word-limit/>
   <van-button bindclick="order" block class="orderBtn" color="{{color.dpink}}" disabled="{{btnClicked}}">立即预约</van-button>
 </view>

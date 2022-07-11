@@ -16,7 +16,8 @@ Page({
     userName:'',
     userId:'',
     orderTarget:[],
-    btnClicked:false
+    btnClicked:false,
+    myColor:['#c6cee2','#efdadd','#cadabb','#9aa193','#b0787d','#a1b2cc','#d9d6d9']
   },
   onLoad: function (options) {
     let roomId = wx.getStorageSync('roomMsg')['room_id']
@@ -57,15 +58,17 @@ Page({
         // console.log(res.data.data)
         if(res.data.rtnCode === '000000'){
           // console.log(res.data)
+          let colorNum = 0
           let recordArr = []
           res.data.data.forEach(item=>{
             let str = this.formatRecord(item.record)
             recordArr[17] = recordArr[17]||{status:0}
             let pos = str.indexOf('1')
             while(pos > -1){
-              recordArr[pos] = {status:1,name:item.nickname,theme:item.theme}
+              recordArr[pos] = {status:1,name:item.nickname,theme:item.theme,color:this.data.myColor[colorNum],userId:item.userId}
               pos = str.indexOf('1',pos+1)
             }
+            colorNum ++
             this.setData({
               recordArr
             })
@@ -109,55 +112,49 @@ Page({
     let index = e.currentTarget.dataset.index;
     let orderTarget = this.data.orderTarget
     let recordValue = this.data.recordArr[index]; //此时间段的记录
-    let target = `recordArr[${index}]`
+    let newRecordArr = this.data.recordArr
+    let startTime = orderTarget.indexOf(1)
+    let endTime = orderTarget.lastIndexOf(1)
     if(recordValue && recordValue.status === 1){
-      Toast(recordValue.name + ' - ' + recordValue.theme);
-    }else if(recordValue && recordValue.status === 2){
-      orderTarget[index] = 0
-      recordValue = {status:0,name:''}
+      Toast(recordValue.name + ' - ' + recordValue.userId +' - ' + recordValue.theme);
     }else{
-      orderTarget[index] = 1
-      recordValue = {status:2,name:''}
+      if(startTime>-1){ //如果已经选了
+        if(endTime>startTime){ //选择了多段时间，清空
+          newRecordArr.forEach((item)=>{
+            if(item.status === 2){
+              item.status = 0
+            }
+          })
+          orderTarget = new Array(18)
+        }else if(endTime == startTime){ //选择了一段时间，继续选择结束时间
+          if(index>startTime){
+            for(let i=startTime;i<index+1;i++){
+              if(newRecordArr[i] && newRecordArr[i].status === 1){
+                Toast('不可以包含别人的会议时间！')
+                return false
+              }
+              orderTarget[i] = 1
+              newRecordArr[i] = {status:2,name:''}
+            }
+          }else{
+            for(let i=index;i<startTime+1;i++){
+              orderTarget[i] = 1
+              newRecordArr[i] = {status:2,name:''}
+            }
+          }
+        }
+        // console.log('已有')
+      }else{
+        orderTarget[index] = 1
+        newRecordArr[index] = {status:2,name:''}
+        // console.log('暂无')
+      }
     }
     this.setData({
-      [target]:recordValue,
-      orderTarget
+      recordArr:newRecordArr,
+      orderTarget,
     })
   },
-  // //startTime
-  // showStartTime(){
-  //   this.setData({
-  //     showStartTime:true
-  //   })
-  // },
-  // chooseStartTime(event) {
-  //   this.setData({
-  //     startTime: event.detail,
-  //   });
-  //   this.closeStartTime();
-  // },
-  // closeStartTime(){
-  //   this.setData({
-  //     showStartTime:false
-  //   })
-  // },
-  //endTime
-  // showEndTime(){
-  //   this.setData({
-  //     showEndTime:true
-  //   })
-  // },
-  // chooseEndTime(event) {
-  //   this.setData({
-  //     endTime: event.detail,
-  //   });
-  //   this.closeEndTime()
-  // },
-  // closeEndTime(){
-  //   this.setData({
-  //     showEndTime:false
-  //   })
-  // },
   //预约
   getUserName(event){
     this.setData({
