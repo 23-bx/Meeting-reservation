@@ -138,6 +138,10 @@ Page({
             }
           }else{
             for(let i=index;i<startTime+1;i++){
+              if(newRecordArr[i] && newRecordArr[i].status === 1){
+                Toast('不可以包含别人的会议时间！')
+                return false
+              }
               orderTarget[i] = 1
               newRecordArr[i] = {status:2,name:''}
             }
