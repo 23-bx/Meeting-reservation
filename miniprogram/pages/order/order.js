@@ -62,7 +62,7 @@ Page({
           let recordArr = []
           res.data.data.forEach(item=>{
             let str = this.formatRecord(item.record)
-            recordArr[17] = recordArr[17]||{status:0}
+            recordArr[20] = recordArr[20]||{status:0}
             let pos = str.indexOf('1')
             while(pos > -1){
               recordArr[pos] = {status:1,name:item.nickname,theme:item.theme,color:this.data.myColor[colorNum],userId:item.userId}

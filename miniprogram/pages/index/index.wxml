@@ -39,7 +39,8 @@
   </view>
   <van-empty wx:if="{{rooms.length==0}}" image="search" description="没有找到符合条件的会议室哦~" />
   <van-cell-group wx:else>
-    <van-cell class="roomItem" wx:for="{{rooms}}" wx:if="{{item.room_id!=2||(item.room_id==2&&showYanka)}}" value="" use-label-slot wx:key="room_id" bindtap="order" data-msg="{{item}}">
+    <!-- <van-cell class="roomItem" wx:for="{{rooms}}" wx:if="{{item.room_id!=2||(item.room_id==2&&showYanka)}}" value="" use-label-slot wx:key="room_id" bindtap="order" data-msg="{{item}}"> -->
+    <van-cell class="roomItem" wx:for="{{rooms}}" value="" use-label-slot wx:key="room_id" bindtap="order" data-msg="{{item}}">
       <view slot="label" class="label">
         <view class="roomMsg">
           <view class="title">{{item.room_name}}</view>
@@ -48,14 +49,15 @@
           <view class="device" style="min-height: 40rpx;">
             <van-tag plain type="primary" color="{{color.dorange}}" wx:for="{{item.device}}" wx:for-item="dName" wx:key="index">{{dName}}</van-tag>
           </view>
-          <view class="record">
-            <span class="timeBox {{recordItem==1?'active':''}} {{index%2==0?'borderB':''}}" wx:for="{{item.record}}" wx:for-item="recordItem" wx:key="index">
-              <span class="clock" wx:if="{{index%2==0}}">{{index*0.5+9}}</span>
-            </span>
-          </view>
+          
         </view>
         <view class="pic">
           <image src="../../images/tabbar/meeting-room.jpg" mode="widthFix"></image>
+        </view>
+        <view class="record">
+          <span class="timeBox {{recordItem==1?'active':''}} {{index%2==0?'borderB':''}}" wx:for="{{item.record}}" wx:for-item="recordItem" wx:key="index">
+            <span class="clock" wx:if="{{index%2==0}}">{{index*0.5+9}}</span>
+          </span>
         </view>
       </view>
     </van-cell>

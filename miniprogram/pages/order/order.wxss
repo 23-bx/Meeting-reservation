@@ -30,19 +30,21 @@
 }
 .record{
   margin-top: 20rpx;
-  /* height: 100rpx; */
+  height: 100rpx;
   color:#969799;
   font-size: 24rpx;
   text-align: center;
-  display: flex;
+  /* display: flex; */
   padding: 0 50rpx;
-  flex-wrap: wrap;
+  white-space: nowrap;
+  /* flex-wrap: wrap; */
+  overflow-x: scroll;
 }
 .record .timeBox{
-  flex: 1;
+  /* flex: 1; */
   display: inline-block;
   /* width: 10%; */
-  width: 35rpx;
+  width: 48rpx;
   height: 35rpx;
   border-left: 1px solid #e79796;
   position: relative;

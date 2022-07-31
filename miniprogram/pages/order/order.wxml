@@ -32,7 +32,7 @@
     <van-datetime-picker type="time" value="{{ endTime }}" filter="{{ filter }}" 
     min-hour="9" max-hour="17" bind:confirm="chooseEndTime" bind:cancel="closeEndTime"/>
   </van-popup> -->
-  <van-cell title="点击时间轴 - 选择预约时间段" border="{{ false }}" >
+  <van-cell title="选择预约时间段 [滑动显示更多]" border="{{ false }}" >
   </van-cell>
   <view class="record">
     <span class="timeBox {{recordItem.status==1?'active':''}} {{index%2==0?'borderB':''}} {{recordItem.status==2?'choosed':''}}" wx:for="{{recordArr}}" wx:for-item="recordItem" style="background-color:{{recordItem.color}};" wx:key="index" bindtap="chooseTime" data-index="{{index}}">

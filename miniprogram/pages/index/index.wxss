@@ -59,6 +59,9 @@
 .roomItem{
   position: relative;
 }
+.roomItem .van-cell{
+  min-height: 300rpx;
+}
 .roomItem .label{
   /* min-height: 200rpx; */
   padding-bottom: 20rpx;
@@ -87,21 +90,23 @@
 .roomItem .label .roomMsg .device{
   width: 70%;
 }
-.roomItem .label .roomMsg .record{
+.roomItem .record{
   margin-top: 20rpx;
+  position: absolute;
+  bottom: 60rpx;
 }
-.roomItem .label .roomMsg .record .timeBox{
+.roomItem .record .timeBox{
   display: inline-block;
-  width: 22rpx;
+  width: 30rpx;
   height: 20rpx;
   border-left: 1px solid #e79796;
   /* border-right: 1px solid #eaeaea; */
   position: relative;
 }
-.roomItem .label .roomMsg .record .timeBox.active{
+.roomItem .record .timeBox.active{
   background-color: #f5cec7;
 }
-.roomItem .label .roomMsg .record .timeBox span{
+.roomItem .record .timeBox span{
   position: absolute;
   left: -10rpx;
   bottom: -35rpx;
@@ -173,6 +178,6 @@
   font-size: 27rpx;
   color: #888;
 } */
-.roomItem .label .roomMsg .record .timeBox.borderB{
+.roomItem .record .timeBox.borderB{
   border-left: 2px rgb(255, 154, 154) solid;
 }

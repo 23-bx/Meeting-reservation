@@ -21,11 +21,11 @@ Page({
   },
   onLoad(e) {
     console.log(e)
-    if(e.type === 'wy'){
-      this.setData({
-        showYanka:true
-      })
-    }
+    // if(e.type === 'wy'){
+    //   this.setData({
+    //     showYanka:true
+    //   })
+    // }
   },
   onShow(){
     let pDate,sDate;
