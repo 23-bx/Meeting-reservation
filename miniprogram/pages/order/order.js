@@ -127,6 +127,11 @@ Page({
           })
           orderTarget = new Array(18)
         }else if(endTime == startTime){ //选择了一段时间，继续选择结束时间
+          console.log(1111)
+          if(index - startTime > 2 || index - startTime < -2){
+            Toast('最多预约一个半小时！')
+            return false
+          }
           if(index>startTime){
             for(let i=startTime;i<index+1;i++){
               if(newRecordArr[i] && newRecordArr[i].status === 1){
