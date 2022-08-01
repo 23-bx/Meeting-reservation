@@ -1,0 +1,63 @@
+/* pages/my/my.wxss */
+#collTitle .theme{
+  font-size: 30rpx;
+  height: 70rpx;
+}
+#collTitle .tLeft,.tMid,.tRight{
+  display: inline-block;
+  width: 200rpx;
+}
+#collTitle .tRight{
+  font-size: 25rpx;
+  width: 250rpx;
+}
+#collTitle .tLeft{
+  width: 90rpx;
+  margin-right: 20rpx;
+  font-size: 25rpx;
+  border-right: 1rpx solid #f5cec7;
+}
+#collTitle .tMid{
+  font-size: 25rpx;
+  color: #808080;
+}
+#collTitle .tRight{
+  float: right;
+  text-align: right;
+}
+#collTitle .position{
+  display: inline-block;
+  font-size: 20rpx;
+  width: 100rpx;
+  text-align: left;
+}
+.van-cell {
+  box-shadow: 1px 1px 8px #c1c1c1;
+}
+#detail{
+  display: flex;
+}
+.listPic{
+  vertical-align: middle;
+  width: 100rpx;
+}
+.chair{
+  flex: 1;
+  vertical-align: middle;
+  font-size: 30rpx;
+}
+.device{
+  display: flex;
+  align-items: center;
+  flex:2.5;
+  font-size: 25rpx;
+}
+.cancel{
+  width: 67%;
+  text-align: center;
+  padding-top: 20rpx;
+  border-top: 1px solid #dedede;
+  font-size: 28rpx;
+  margin: 0 auto;
+  margin-top: 30rpx;
+}

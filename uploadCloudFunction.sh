@@ -1,0 +1,1 @@
+"/Applications/wechatwebdevtools.app/Contents/MacOS/cli" cloud functions deploy --e cloud1-2gti864359941aaa --n quickstartFunctions --r --project "/Users/lkaien/WeChatProjects/Meeting-reservation" --report_first --report

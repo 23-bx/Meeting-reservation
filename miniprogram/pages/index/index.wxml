@@ -1,0 +1,79 @@
+<view id="meetingPage">
+  <view id="selection">
+    <view id="officePicker">
+      <van-dropdown-menu active-color="{{color.dpink}}">
+        <van-dropdown-item value="{{ office }}" options="{{ officeList }}" bind:change="changeOffice" />
+        <van-dropdown-item title="{{date}}" value="{{ date }}" id="datePicker">
+          <van-calendar show-title="{{false}}" color="{{color.dpink}}" poppable="{{ false }}" show-confirm="{{ false }}" bind:select="confirmDate" class="calendar" />
+        </van-dropdown-item>
+        <van-dropdown-item id="moreCondition" style="max-width: 140rpx;" title="{{conditionStr}}">
+          <van-cell title="选择楼层">
+            <van-slider class="slider" value="{{ floor }}" use-button-slot bind:drag="chooseFloor" bind:change="chooseFloor" min="1" max="28" active-color="{{floorColor}}">
+              <view class="custom-button" slot="button" style="background-color: {{floorColor}};">{{ floor }}</view>
+            </van-slider>
+          </van-cell>
+          <van-cell title="容纳人数">
+            <van-slider class="slider" value="{{ chair }}" use-button-slot bind:drag="choosePplNum" bind:change="choosePplNum" min="10" max="50" step="10" active-color="{{color.dpink}}">
+              <view class="custom-button" slot="button">{{ chair }}</view>
+            </van-slider>
+          </van-cell>
+          <van-cell title="设备筛选">
+            <van-checkbox-group value="{{ device }}" bind:change="getDevice" class="checkGroup">
+              <van-checkbox style="float: left;width: 50%;" wx:for="{{deviceList}}" name="{{item.device_bit}}" shape="square" class="checkItem" checked-color="{{color.lpink}}" wx:key="device_id">{{item.device_name}}</van-checkbox>
+            </van-checkbox-group>
+          </van-cell>
+          <view class="btn-container">
+            <van-button type="default" bind:click="resetCondition" color="{{color.green}}">
+              重置
+            </van-button>
+            <van-button type="default" bind:click="confirmCondition" color="{{color.dpink}}">
+              确认
+            </van-button>
+          </view>
+        </van-dropdown-item>
+      </van-dropdown-menu>
+    </view>
+    <!-- <view id="roomSearch">
+      <van-search value="{{ value }}" placeholder="请输入会议室名称关键词" show-action bind:search="onSearch" bind:cancel="onCancel" />
+    </view> -->
+  </view>
+  <van-empty wx:if="{{rooms.length==0}}" image="search" description="没有找到符合条件的会议室哦~" />
+  <van-cell-group wx:else>
+    <!-- <van-cell class="roomItem" wx:for="{{rooms}}" wx:if="{{item.room_id!=2||(item.room_id==2&&showYanka)}}" value="" use-label-slot wx:key="room_id" bindtap="order" data-msg="{{item}}"> -->
+    <van-cell class="roomItem" wx:for="{{rooms}}" value="" use-label-slot wx:key="room_id" bindtap="order" data-msg="{{item}}">
+      <view slot="label" class="label">
+        <view class="roomMsg">
+          <view class="title">{{item.room_name}}</view>
+          <view class="position"><van-icon name="location-o"  size="30rpx" />{{item.office_name+item.floor+'层'}}</view>
+          <view class="chair"><van-icon name="friends-o" size="30rpx" />{{item.chair}}</view>
+          <view class="device" style="min-height: 40rpx;">
+            <van-tag plain type="primary" color="{{color.dorange}}" wx:for="{{item.device}}" wx:for-item="dName" wx:key="index">{{dName}}</van-tag>
+          </view>
+          
+        </view>
+        <view class="pic">
+          <image src="../../images/tabbar/meeting-room.jpg" mode="widthFix"></image>
+        </view>
+        <view class="record">
+          <span class="timeBox {{recordItem==1?'active':''}} {{index%2==0?'borderB':''}}" wx:for="{{item.record}}" wx:for-item="recordItem" wx:key="index">
+            <span class="clock" wx:if="{{index%2==0}}">{{index*0.5+9}}</span>
+          </span>
+        </view>
+      </view>
+    </van-cell>
+  </van-cell-group>
+  <!-- <view id="roomItem" wx:for="{{rooms}}">
+    <image src="../../images/tabbar/meeting-room.jpg"></image>
+    <view class="item_left">
+      <text class="item_left_name">{{item.room_name}}</text>
+      <van-tag plain type="primary" color="#FF3745">{{item.device}}</van-tag>
+      <text class="item_left_desc">
+        {{item.floor}}F   可容纳{{item.chair}}人
+      </text>
+    </view>
+    <view class="item_right">
+      <text class="item_right_desc">{{item.office_name}}</text>
+      <van-button class="item_right_btn" color="{{color.dpink}}">立即预约</van-button>
+    </view>
+  </view> -->
+</view>
