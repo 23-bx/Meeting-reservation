@@ -1,0 +1,6 @@
+/* components/CardView/CardView.wxss */
+.card-view{
+  height: 300rpx;
+  background-color: #fff;
+  margin: 15rpx;
+}

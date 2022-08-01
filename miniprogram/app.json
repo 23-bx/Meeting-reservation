@@ -1,0 +1,56 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/allMeetings/index",
+    "pages/my/my",
+    "components/CardView/CardView",
+    "pages/order/order",
+    "pages/login/login"
+  ],
+  "tabBar": {
+    "selectedColor": "#e79796",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "会议室预定",
+        "iconPath": "./images/tabbar/meeting.png",
+        "selectedIconPath": "./images/tabbar/meeting-a.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "我的",
+        "iconPath": "./images/tabbar/my.png",
+        "selectedIconPath": "./images/tabbar/my-a.png"
+      }
+    ]
+  },
+  "window": {
+    "navigationBarBackgroundColor": "#e79796",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "会议室列表",
+    "backgroundTextStyle": "light"
+  },
+  "usingComponents": {
+    "van-icon": "@vant/weapp/icon/index",
+    "van-button": "@vant/weapp/button/index",
+    "van-cell": "@vant/weapp/cell/index",
+    "van-calendar": "@vant/weapp/calendar/index",
+    "van-search": "@vant/weapp/search/index",
+    "van-collapse": "@vant/weapp/collapse/index",
+    "van-collapse-item": "@vant/weapp/collapse-item/index",
+    "van-slider": "@vant/weapp/slider/index",
+    "van-checkbox": "@vant/weapp/checkbox/index",
+    "van-checkbox-group": "@vant/weapp/checkbox-group/index",
+    "van-picker": "@vant/weapp/picker/index",
+    "van-dropdown-menu": "@vant/weapp/dropdown-menu/index",
+    "van-dropdown-item": "@vant/weapp/dropdown-item/index",
+    "van-tag": "@vant/weapp/tag/index",
+    "van-popup": "@vant/weapp/popup/index",
+    "van-datetime-picker": "@vant/weapp/datetime-picker/index",
+    "van-toast": "@vant/weapp/toast/index",
+    "van-empty": "@vant/weapp/empty/index",
+    "van-swipe-cell": "@vant/weapp/swipe-cell/index",
+    "van-field": "@vant/weapp/field/index"
+  },
+  "sitemapLocation": "sitemap.json"
+}
