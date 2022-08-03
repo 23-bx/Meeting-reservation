@@ -95,16 +95,14 @@ Page({
   resetCondition() { //重置筛选
     this.selectComponent('#moreCondition').toggle();
     let conditionStr = '更多筛选'
+    let condition = {}
     if(this.data.condition.office_id){
       let temp = this.data.condition.office_id
-      let office_id = 'condition.office_id'
-      this.setData({
-        [office_id]: temp
-      })
+      condition.office_id = temp
     }
     this.setData({
       conditionStr,
-      condition: {},
+      condition,
       floor: 1,
       floorColor: '#eee',
       chair: 10,
