@@ -29,7 +29,20 @@
     </view>
   </van-collapse-item>
 </van-collapse>
+<view id="settings"><van-icon name="setting-o" size="30px" color="#c17777" bindtap="openSettings"/><view>设置</view></view>
 <van-toast id="van-toast" />
+<van-dialog use-slot title="请选择常驻职场" show="{{ showOfiiceWindow }}" showConfirmButton="false" showConfirmButton="{{showConfirmButton}}">
+    <view class="officeWindow">
+      <view class="officeItem" bindtap="chooseOffice" data-office="1">
+        <view>新大厦</view>
+        <image mode="widthFix" src="https://img1.baidu.com/it/u=601174836,1081067679&fm=253&fmt=auto&app=120&f=PNG?w=600&h=208" alt=""/>
+      </view>
+      <view class="officeItem" bindtap="chooseOffice" data-office="2">
+        <view>荣超</view>
+        <image mode="widthFix" src="https://img1.baidu.com/it/u=601174836,1081067679&fm=253&fmt=auto&app=120&f=PNG?w=600&h=208" alt=""/>
+      </view>
+    </view>
+  </van-dialog>
 <!-- <wxs module="m1">
   var timeFormat = function(map,timeCount){
     var bin = timeCount.toString(2);

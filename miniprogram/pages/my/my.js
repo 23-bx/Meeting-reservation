@@ -4,7 +4,9 @@ import Toast from '../../miniprogram_npm/@vant/weapp/toast/toast';
 var app = getApp();
 Page({
   data: {
-    activeName: '0'
+    activeName: '0',
+    showOfiiceWindow:false, //显示选择职场的窗口
+    showConfirmButton:false
   },
   onLoad: function (options) {
     wx.setNavigationBarTitle({
@@ -81,5 +83,23 @@ Page({
       path:'/pages/index/index',
       imageUrl:'/images/index/share.png',
     }
+  },
+  openSettings(){
+    this.setData({
+      showOfiiceWindow:true
+    })
+  },
+  chooseOffice(e){
+    let office = ''
+    wx.setStorageSync('defaultOffice',e.currentTarget.dataset.office)
+    this.setData({
+      showOfiiceWindow:false,
+    })
+    if(e.currentTarget.dataset.office == 1){
+      office = '新大厦'
+    }else{
+      office = '荣超'
+    }
+    Toast(`常驻职场已修改为${office}~`);
   }
 })

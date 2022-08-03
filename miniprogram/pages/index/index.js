@@ -17,7 +17,9 @@ Page({
     conditionStr: '更多筛选', //条件筛选会议室结果
     rooms: {},
     deviceCount:0,
-    showYanka:false
+    showYanka:false,
+    showOfiiceWindow:false, //显示选择职场的窗口
+    showConfirmButton:false
   },
   onLoad(e) {
     console.log(e)
@@ -28,6 +30,17 @@ Page({
     // }
   },
   onShow(){
+    if(!wx.getStorageSync('defaultOffice')){
+      this.setData({
+        showOfiiceWindow:true
+      })
+    }else{
+      let target = 'condition.office_id'
+      this.setData({
+        office:wx.getStorageSync('defaultOffice'),
+        [target]:wx.getStorageSync('defaultOffice')
+      })
+    }
     let pDate,sDate;
     if(wx.getStorageSync('date') && wx.getStorageSync('changeDate') === 1){
       let date = wx.getStorageSync('date');
@@ -182,6 +195,7 @@ Page({
     })
   },
   getRooms() { //获取会议室列表
+    console.log('getRooms')
     let condition = this.data.condition
     wx.request({
       url: url.getRoomList,
@@ -212,5 +226,15 @@ Page({
       path:'/pages/index/index',
       imageUrl:'/images/index/share.png',
     }
+  },
+  chooseOffice(e){
+    let target = 'condition.office_id'
+    wx.setStorageSync('defaultOffice',e.currentTarget.dataset.office)
+    this.setData({
+      showOfiiceWindow:false,
+      office:e.currentTarget.dataset.office,
+      [target]:e.currentTarget.dataset.office
+    })
+    this.getRooms();
   }
 });

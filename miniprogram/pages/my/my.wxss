@@ -61,3 +61,45 @@
   margin: 0 auto;
   margin-top: 30rpx;
 }
+#settings{
+  position: fixed;
+  bottom: 50rpx;
+  right: 50rpx;
+  font-size: small;
+  width: 60rpx;
+  text-align: center;
+}
+.officeWindow{
+  margin: 50rpx 0 30rpx 0;
+  width: 100%;
+  height: 500rpx;
+}
+.officeWindow image{
+  width: 100%;
+  opacity: 0.4;
+}
+.officeWindow .officeItem{
+  position: relative;
+  /* height: 100rpx; */
+  width: 100%;
+  /* background-color: red; */
+}
+.officeItem view{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  height: 70rpx;
+  width: 100rpx;
+  border-radius: 10rpx;
+  padding: 10rpx 20rpx;
+  color: rgb(0,0,0);
+  text-align: center;
+  line-height: 70rpx;
+  font-weight: bold;
+}
+.tip{
+  font-size: smaller;
+  text-align: center;
+  color: #929292;
+}

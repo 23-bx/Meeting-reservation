@@ -62,6 +62,19 @@
       </view>
     </van-cell>
   </van-cell-group>
+  <van-dialog use-slot title="请选择常驻职场" show="{{ showOfiiceWindow }}" showConfirmButton="{{showConfirmButton}}">
+    <view class="officeWindow">
+      <view class="officeItem" bindtap="chooseOffice" data-office="1">
+        <view>新大厦</view>
+        <image mode="widthFix" src="https://img1.baidu.com/it/u=601174836,1081067679&fm=253&fmt=auto&app=120&f=PNG?w=600&h=208" alt=""/>
+      </view>
+      <view class="officeItem" bindtap="chooseOffice" data-office="2">
+        <view>荣超</view>
+        <image mode="widthFix" src="https://img1.baidu.com/it/u=601174836,1081067679&fm=253&fmt=auto&app=120&f=PNG?w=600&h=208" alt=""/>
+      </view>
+      <view class="tip">Tip:可以在“我的”中修改~</view>
+    </view>
+  </van-dialog>
   <!-- <view id="roomItem" wx:for="{{rooms}}">
     <image src="../../images/tabbar/meeting-room.jpg"></image>
     <view class="item_left">
