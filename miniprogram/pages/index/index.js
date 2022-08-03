@@ -22,7 +22,6 @@ Page({
     showConfirmButton:false
   },
   onLoad(e) {
-    console.log(e)
     // if(e.type === 'wy'){
     //   this.setData({
     //     showYanka:true
@@ -115,12 +114,12 @@ Page({
   },
   confirmCondition() { //筛选确定
     let deviceFormat = [];
-    deviceFormat[2]="办公网";
-    deviceFormat[4]="开发网";
+    deviceFormat[2]="HDMI";
+    deviceFormat[4]="白板";
     deviceFormat[8]="显示器";
-    deviceFormat[16]="白板";
-    deviceFormat[32]="HDMI";
-    deviceFormat[64]="麦克风";
+    deviceFormat[16]="外网";
+    deviceFormat[32]="开发网";
+    deviceFormat[64]="办公网";
     this.selectComponent('#moreCondition').toggle();
     let conditionArr = []
     if (this.data.condition.floor) {
@@ -195,7 +194,6 @@ Page({
     })
   },
   getRooms() { //获取会议室列表
-    console.log('getRooms')
     let condition = this.data.condition
     wx.request({
       url: url.getRoomList,

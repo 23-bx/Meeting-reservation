@@ -10,7 +10,7 @@ App({
        ["18:00",18],["18:30",19],["19:00",20],
       ])
     let deviceMap = new Map(
-      [[2,"办公网"],[4,"开发网"],[8,"显示器"],[16,"白板"],[32,"HDMI"],[64,"麦克风"]]
+      [[64,"办公网"],[32,"开发网"],[16,"外网"],[8,"显示器"],[4,"白板"],[2,"HDMI"]]
     )
     this.globalData.timeMap = timeMap
     this.globalData.deviceMap = deviceMap
