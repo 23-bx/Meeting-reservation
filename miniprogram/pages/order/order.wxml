@@ -21,7 +21,7 @@
   </van-cell>
   <van-cell title="会议日期" value="{{ date }}" bind:click="showCalender" is-link></van-cell>
   <van-calendar show="{{ showCal }}" color="{{color.dpink}}" bind:close="closeCalender" bind:select="confirmDate" />
-  <van-cell title="选择预约时间段 [滑动显示更多]" border="{{ false }}" >
+  <van-cell title="选择预约时间段" border="{{ false }}" >
   </van-cell>
   <view class="timeList">
     <view class="timeBox {{item.status==1?'active':''}} {{item.status==2?'choosed':''}}" wx:for="{{recordArr}}" wx:if="{{item.status!=3 && index!=recordArr.length-1}}" wx:key="index" bindtap="chooseTime" data-index="{{index}}">

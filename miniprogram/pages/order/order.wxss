@@ -82,6 +82,11 @@
   margin: 5rpx auto;
   color: #ff8383;
   text-align: center;
+  font-size: 23rpx;
+}
+.timeList .timeBox view{
+  height: 45rpx;
+  line-height: 45rpx;
 }
 .timeList .timeBox.active{
   background-color: #ffeedf;

@@ -181,6 +181,10 @@ Page({
     let orderTarget = this.data.orderTarget
     let orderStart = orderTarget.indexOf(1)
     let orderEnd = orderTarget.lastIndexOf(1)
+    if(recordArr[chooseTarget].status==1) {
+      Toast('这个时间已经被预约啦！')
+      return false
+    }
     if(orderStart<0){ //目前无选中
       recordArr[chooseTarget].status = 2
       orderTarget[chooseTarget] = 1
