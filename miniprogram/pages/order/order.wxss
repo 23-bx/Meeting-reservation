@@ -1,6 +1,7 @@
 /* pages/order/order.wxss */
 #order{
   background-color: #fff;
+  padding-bottom: 100rpx;
 }
 #order .pic{
   float: right;
@@ -72,3 +73,20 @@
   background-color: rgb(255, 245, 245);
   border-radius: 10rpx;
 } */
+.timeList .timeBox{
+  min-height: 60rpx;
+  line-height: 60rpx;
+  width: 79%;
+  /* border-bottom: 1px dashed #e79796; */
+  border: 1px solid #e79796;
+  margin: 5rpx auto;
+  color: #ff8383;
+  text-align: center;
+}
+.timeList .timeBox.active{
+  background-color: #ffeedf;
+}
+.timeList .timeBox.choosed{
+  background-color: #e89a9a;
+  color: #fff;
+}

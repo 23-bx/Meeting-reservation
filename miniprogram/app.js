@@ -12,8 +12,13 @@ App({
     let deviceMap = new Map(
       [[64,"办公网"],[32,"开发网"],[16,"外网"],[8,"显示器"],[4,"白板"],[2,"HDMI"]]
     )
+    let timeArr = []
+    timeMap.forEach((k,v)=>{
+      timeArr.push(v)
+    })
     this.globalData.timeMap = timeMap
     this.globalData.deviceMap = deviceMap
+    this.globalData.timeArr = timeArr
   },
   onHide:function(){
     wx.removeStorageSync('date')

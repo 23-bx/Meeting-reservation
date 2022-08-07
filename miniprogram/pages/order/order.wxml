@@ -17,32 +17,31 @@
       <view class="device">
         <van-tag plain color="{{color.dorange}}" wx:for="{{roomMsg.device}}" wx:for-item="dName" wx:key="index">{{dName}}</van-tag>
       </view>
-      
     </view>
   </van-cell>
   <van-cell title="会议日期" value="{{ date }}" bind:click="showCalender" is-link></van-cell>
   <van-calendar show="{{ showCal }}" color="{{color.dpink}}" bind:close="closeCalender" bind:select="confirmDate" />
-  <!-- <van-cell title="开始时间" value="{{ startTime }}" bind:click="showStartTime" is-link></van-cell>
-  <van-popup show="{{ showStartTime }}" bind:close="closeStartTime" position="bottom">
-    <van-datetime-picker type="time" value="{{ startTime }}" filter="{{ filter }}" 
-    min-hour="9" max-hour="17" bind:confirm="chooseStartTime" bind:cancel="closeStartTime"/>
-  </van-popup>
-  <van-cell title="结束时间" value="{{ endTime }}" bind:click="showEndTime" is-link></van-cell>
-  <van-popup show="{{ showEndTime }}" bind:close="closeEndTime" position="bottom">
-    <van-datetime-picker type="time" value="{{ endTime }}" filter="{{ filter }}" 
-    min-hour="9" max-hour="17" bind:confirm="chooseEndTime" bind:cancel="closeEndTime"/>
-  </van-popup> -->
   <van-cell title="选择预约时间段 [滑动显示更多]" border="{{ false }}" >
   </van-cell>
-  <view class="record">
+  <view class="timeList">
+    <view class="timeBox {{item.status==1?'active':''}} {{item.status==2?'choosed':''}}" wx:for="{{recordArr}}" wx:if="{{item.status!=3 && index!=recordArr.length-1}}" wx:key="index" bindtap="chooseTime" data-index="{{index}}">
+      <view>{{item.timeStr}} </view>
+      <view wx:if="{{item.status==1}}">{{item.theme}}-{{item.name}}[{{item.userId}}]</view>
+    </view>
+  </view>
+  <!-- <view class="record"> 旧版横时间轴
     <span class="timeBox {{recordItem.status==1?'active':''}} {{index%2==0?'borderB':''}} {{recordItem.status==2?'choosed':''}}" wx:for="{{recordArr}}" wx:for-item="recordItem" style="background-color:{{recordItem.color}};" wx:key="index" bindtap="chooseTime" data-index="{{index}}">
-    <!-- <span class="timeBox {{recordItem==1?'active':''}} {{index%2==0?'borderB':''}} {{recordItem==2?'choosed':''}}" wx:for="{{record}}" wx:for-item="recordItem" wx:key="index" bindtap="chooseTime" data-index="{{index}}"> -->
       <span class="clock" wx:if="{{index%2==0}}">{{index*0.5+9}}</span>
     </span>
-  </view>
-  <van-field value="{{ userName }}" label="姓名" placeholder="请输入用户名" bind:change="getUserName"/>
+  </view> -->
+  <!-- <van-field value="{{ userName }}" label="姓名" placeholder="请输入用户名" bind:change="getUserName"/>
   <van-field value="{{ userId }}" type="number" label="座机" placeholder="请输入座机后四位" bind:change="getUserId" maxlength='4'/>
-  <van-field value="{{ theme }}" type="text" label="主题" placeholder="请输入会议主题" bind:change="getTheme" maxlength='10' show-word-limit/>
-  <van-button bindclick="order" block class="orderBtn" color="{{color.dpink}}" disabled="{{btnClicked}}">立即预约</van-button>
+  <van-field value="{{ theme }}" type="text" label="主题" placeholder="请输入会议主题" bind:change="getTheme" maxlength='10' show-word-limit/> -->
+  <van-button bindclick="enterInfo" block class="orderBtn" color="{{color.dpink}}" disabled="{{btnClicked}}">立即预约</van-button>
+  <van-dialog use-slot title="请输入会议信息" show="{{ showInfoWindow }}" bind:confirm="order" show-cancel-button>
+    <van-field value="{{ userName }}" label="姓名" placeholder="请输入用户名" bind:change="getUserName"/>
+    <van-field value="{{ userId }}" type="number" label="座机" placeholder="请输入座机后四位" bind:change="getUserId" maxlength='4'/>
+    <van-field value="{{ theme }}" type="text" label="主题" placeholder="请输入会议主题" bind:change="getTheme" maxlength='10' show-word-limit/>
+  </van-dialog>
 </view>
 
