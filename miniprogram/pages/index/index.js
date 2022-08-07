@@ -205,7 +205,7 @@ Page({
         }
       },
       fail:err=>{
-        console.log(res)
+        console.log(err)
       }
     })
   },
