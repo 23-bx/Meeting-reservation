@@ -1,10 +1,11 @@
-<view id="meetingPage">
+<view id="meetingPage" bindtouchstart="touchStart" bindtouchend="touchEnd">
+  <van-toast id="van-toast" />
   <view id="selection">
     <view id="officePicker">
       <van-dropdown-menu active-color="{{color.dpink}}">
         <van-dropdown-item value="{{ office }}" options="{{ officeList }}" bind:change="changeOffice" />
         <van-dropdown-item title="{{date}}" value="{{ date }}" id="datePicker">
-          <van-calendar show-title="{{false}}" color="{{color.dpink}}" poppable="{{ false }}" show-confirm="{{ false }}" bind:select="confirmDate" class="calendar" />
+          <van-calendar default-date="{{calendarDate}}" show-title="{{false}}" color="{{color.dpink}}" poppable="{{ false }}" show-confirm="{{ false }}" bind:select="confirmDate" class="calendar" />
         </van-dropdown-item>
         <van-dropdown-item id="moreCondition" style="max-width: 140rpx;" title="{{conditionStr}}">
           <van-cell title="选择楼层">
@@ -62,6 +63,7 @@
       </view>
     </van-cell>
   </van-cell-group>
+  <span class="slideTip">Tip:左右滑动可以切换日期~</span>
   <van-dialog use-slot title="请选择常驻职场" show="{{ showOfiiceWindow }}" showConfirmButton="{{showConfirmButton}}">
     <view class="officeWindow">
       <view class="officeItem" bindtap="chooseOffice" data-office="1">

@@ -1,5 +1,6 @@
 #meetingPage{
   padding-top: 90rpx;
+  height: 92vh;
 }
 .calendar {
   --calendar-height: 500px;
@@ -214,4 +215,23 @@
   font-size: smaller;
   text-align: center;
   color: #929292;
+}
+.van-tabs__wrap{
+  display: none !important;
+}
+/* 隐藏tab标题 */
+.van-tab__pane{
+  display: inline-block;
+  height: 500rpx !important;
+  width: 100%;
+  background-color: #ccc;
+}
+.slideTip{
+  font-size: 22rpx;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  color: #ccc;
+  margin-bottom: 20rpx;
+  /* background-color: #fff; */
 }

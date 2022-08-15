@@ -9,7 +9,7 @@
 }
 #collTitle .tRight{
   font-size: 25rpx;
-  width: 250rpx;
+  min-width: 250rpx;
 }
 #collTitle .tLeft{
   width: 90rpx;
@@ -28,8 +28,9 @@
 #collTitle .position{
   display: inline-block;
   font-size: 20rpx;
-  width: 100rpx;
+  min-width: 100rpx;
   text-align: left;
+  margin-right: 16rpx;
 }
 .van-cell {
   box-shadow: 1px 1px 8px #c1c1c1;

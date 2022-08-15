@@ -33,6 +33,7 @@ Page({
         userId:wx.getStorageSync('userId')
       })
     }
+    let calendarDate = new Date(date).getTime()
     this.setData({
       roomId,
       color,
@@ -40,7 +41,8 @@ Page({
       date,
       showCal: false,
       [dateTarget]:date,
-      newTimeLine:[]
+      newTimeLine:[],
+      calendarDate
     })
     wx.setNavigationBarTitle({
       title: roomMsg.room_name
@@ -351,5 +353,43 @@ Page({
       path:'/pages/index/index',
       imageUrl:'/images/index/share.png',
     }
+  },
+  touchStart(e){
+    this.setData({
+      touchStartPosition:[e.changedTouches[0].pageX,e.changedTouches[0].pageY]
+    })
+  },
+  touchEnd(e){
+    let [sx,sy] = this.data.touchStartPosition
+    let [ex,ey] = [e.changedTouches[0].pageX,e.changedTouches[0].pageY]
+    if(sx-ex>50){
+      this.setSlideDate(0) //左滑
+    }else if(sx-ex<-50){
+      this.setSlideDate(1) //右滑
+    }
+  },
+  setSlideDate(e){
+    let date = this.data.date
+    let currentTimeStamp = new Date(date).getTime()
+    let targetTimeStamp
+    let todayStamp = new Date(new Date().toLocaleDateString()).getTime()
+    if(e == 0){ 
+      targetTimeStamp = (currentTimeStamp/1000 + 86400)*1000
+    }else{
+      targetTimeStamp = (currentTimeStamp/1000 - 86400)*1000
+      if(targetTimeStamp < todayStamp){
+        Toast('前面不可以约啦！')
+        return false
+      }
+    }
+    let targetDate = new Date(targetTimeStamp).getFullYear()+'-'+ (new Date(targetTimeStamp).getMonth()+1)+'-'+new Date(targetTimeStamp).getDate()
+    let showDate = this.formatDate(targetTimeStamp)
+    let target = "condition.date"
+    this.setData({
+      calendarDate:targetTimeStamp,
+      [target]:targetDate,
+      date:showDate
+    })
+    this.getRooms(this.data.roomId,showDate)
   }
 })
